@@ -16,7 +16,6 @@
       --text: #1a1917;
       --muted: #6b6860;
       --danger: #dc2626;
-      --success: #16a34a;
       --tag-bg: #f1f0ec;
       --radius: 8px;
       --shadow: 0 1px 3px rgba(0,0,0,0.08);
@@ -30,9 +29,9 @@
       line-height: 1.5;
     }
 
-    /* Layout */
     .app { display: flex; min-height: 100vh; }
 
+    /* Sidebar */
     .sidebar {
       width: 280px;
       min-width: 280px;
@@ -51,18 +50,8 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .sidebar-header h1 {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-
-    .sidebar-header p {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .sidebar-header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+    .sidebar-header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     .sidebar-stats {
       display: flex;
@@ -72,31 +61,11 @@
       background: var(--bg);
     }
 
-    .stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-    }
+    .stat { display: flex; flex-direction: column; align-items: center; flex: 1; }
+    .stat-number { font-size: 18px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
-    .stat-number {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .stat-label {
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .sidebar-search {
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .sidebar-search { padding: 10px 12px; border-bottom: 1px solid var(--border); }
     .sidebar-search input {
       width: 100%;
       padding: 6px 10px;
@@ -107,14 +76,22 @@
       outline: none;
       color: var(--text);
     }
-
     .sidebar-search input:focus { border-color: var(--accent); }
 
-    .paper-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 8px 0;
+    .paper-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+
+    .group-label {
+      padding: 8px 16px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
     }
+
+    .group-label:first-child { border-top: none; margin-top: 0; }
 
     .paper-item {
       padding: 10px 16px;
@@ -124,27 +101,19 @@
     }
 
     .paper-item:hover { background: var(--bg); }
-    .paper-item.active {
-      background: var(--accent-light);
-      border-left-color: var(--accent);
-    }
+    .paper-item.active { background: var(--accent-light); border-left-color: var(--accent); }
 
     .paper-item-title {
       font-size: 13px;
       font-weight: 500;
       line-height: 1.3;
-      color: var(--text);
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    .paper-item-meta {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
+    .paper-item-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
     .paper-item-status {
       display: inline-block;
@@ -159,37 +128,8 @@
     .status-reading { background: #dbeafe; color: #1e40af; }
     .status-done { background: #dcfce7; color: #15803d; }
 
-    .sidebar-footer {
-      padding: 12px;
-      border-top: 1px solid var(--border);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: var(--radius);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      transition: opacity 0.1s, background 0.1s;
-    }
-
-    .btn:hover { opacity: 0.85; }
-    .btn-primary { background: var(--accent); color: #fff; }
-    .btn-secondary { background: var(--tag-bg); color: var(--text); border: 1px solid var(--border); }
-    .btn-danger { background: #fee2e2; color: var(--danger); }
-    .btn-full { width: 100%; justify-content: center; }
-
-    /* Main content */
-    .main {
-      flex: 1;
-      overflow-y: auto;
-      padding: 32px;
-      max-width: 800px;
-    }
+    /* Main */
+    .main { flex: 1; overflow-y: auto; padding: 32px; max-width: 800px; }
 
     .empty-state {
       display: flex;
@@ -204,9 +144,8 @@
 
     .empty-state-icon { font-size: 48px; opacity: 0.4; }
     .empty-state h2 { font-size: 18px; color: var(--text); }
-    .empty-state p { font-size: 14px; }
 
-    /* Paper detail */
+    /* Detail */
     .paper-detail { display: flex; flex-direction: column; gap: 24px; }
 
     .detail-header {
@@ -217,44 +156,16 @@
       box-shadow: var(--shadow);
     }
 
-    .detail-title {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.3;
-      letter-spacing: -0.02em;
-    }
+    .detail-title { font-size: 20px; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; }
+    .detail-authors { font-size: 14px; color: var(--muted); margin-top: 6px; }
+    .detail-lab { font-size: 12px; color: var(--accent); margin-top: 4px; font-weight: 600; }
 
-    .detail-authors {
-      font-size: 14px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
+    .detail-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
 
-    .detail-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-      align-items: center;
-    }
-
-    .tag {
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: var(--tag-bg);
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-
+    .tag { font-size: 12px; padding: 3px 8px; border-radius: 4px; background: var(--tag-bg); color: var(--muted); border: 1px solid var(--border); }
     .tag-accent { background: var(--accent-light); color: var(--accent); border-color: #bfdbfe; }
 
-    .detail-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
+    .detail-actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; align-items: center; }
 
     .status-select {
       padding: 5px 10px;
@@ -266,219 +177,78 @@
       color: var(--text);
     }
 
-    /* Sections */
-    .section {
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { opacity: 0.85; }
+    .btn-secondary { background: var(--tag-bg); color: var(--text); border: 1px solid var(--border); }
+
+    /* Summary section */
+    .summary-section {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px 24px;
+      padding: 28px 32px;
       box-shadow: var(--shadow);
     }
 
-    .section-title {
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-
-    textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 10px 12px;
-      font-size: 14px;
-      font-family: inherit;
-      line-height: 1.6;
-      resize: vertical;
-      background: var(--bg);
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    textarea:focus { border-color: var(--accent); }
-
-    .save-indicator {
+    .summary-section h2 {
       font-size: 11px;
-      color: var(--success);
-      margin-top: 4px;
-      height: 16px;
-      transition: opacity 0.3s;
-    }
-
-    /* Key concepts */
-    .concepts-list { display: flex; flex-direction: column; gap: 8px; }
-
-    .concept-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 10px 12px;
-      background: var(--bg);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
-
-    .concept-term {
-      font-size: 13px;
-      font-weight: 600;
-      min-width: 140px;
-      color: var(--accent);
-    }
-
-    .concept-def { font-size: 13px; color: var(--text); flex: 1; }
-
-    .concept-del {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1;
-      padding: 0 2px;
-      flex-shrink: 0;
-    }
-
-    .concept-del:hover { color: var(--danger); }
-
-    .add-concept {
-      display: grid;
-      grid-template-columns: 1fr 2fr auto;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .add-concept input {
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 13px;
-      background: var(--bg);
-      color: var(--text);
-      outline: none;
-    }
-
-    .add-concept input:focus { border-color: var(--accent); }
-
-    /* Questions */
-    .questions-list { display: flex; flex-direction: column; gap: 6px; }
-
-    .question-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 8px 12px;
-      background: var(--bg);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      font-size: 13px;
-    }
-
-    .question-item.answered { opacity: 0.6; text-decoration: line-through; }
-
-    .question-check { cursor: pointer; margin-top: 2px; flex-shrink: 0; }
-    .question-text { flex: 1; }
-
-    .question-del {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1;
-      padding: 0 2px;
-    }
-
-    .question-del:hover { color: var(--danger); }
-
-    .add-question {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .add-question input {
-      flex: 1;
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 13px;
-      background: var(--bg);
-      color: var(--text);
-      outline: none;
-    }
-
-    .add-question input:focus { border-color: var(--accent); }
-
-    /* Modal */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 16px;
-    }
-
-    .modal {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 24px;
-      width: 100%;
-      max-width: 520px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    }
-
-    .modal h2 {
-      font-size: 17px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
       margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .summary-body { font-size: 15px; line-height: 1.8; color: var(--text); }
 
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 14px;
-      font-family: inherit;
-      background: var(--bg);
+    .summary-body h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 24px 0 8px;
       color: var(--text);
-      outline: none;
     }
 
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus { border-color: var(--accent); }
+    .summary-body h3:first-child { margin-top: 0; }
 
-    .modal-actions {
+    .summary-body p { margin-bottom: 14px; }
+    .summary-body p:last-child { margin-bottom: 0; }
+
+    .summary-body ul {
+      margin: 8px 0 14px 20px;
       display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-      margin-top: 20px;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    .hidden { display: none !important; }
+    .summary-body li { line-height: 1.7; }
+
+    .summary-body strong { font-weight: 600; }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
 <div class="app">
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
       <h1>Paper Study</h1>
@@ -490,447 +260,501 @@
       <div class="stat"><span class="stat-number" id="stat-done">0</span><span class="stat-label">Done</span></div>
     </div>
     <div class="sidebar-search">
-      <input type="text" id="search-input" placeholder="Search papers..." />
+      <input type="text" id="search-input" placeholder="Search papers... (Cmd+K)" />
     </div>
     <div class="paper-list" id="paper-list"></div>
-    <div class="sidebar-footer">
-      <button class="btn btn-primary btn-full" onclick="openAddModal()">+ Add Paper</button>
-    </div>
   </aside>
 
-  <!-- Main -->
   <main class="main" id="main-content">
     <div class="empty-state" id="empty-state">
       <div class="empty-state-icon">&#128196;</div>
-      <h2>No paper selected</h2>
-      <p>Add a paper from the sidebar or select one to start studying.</p>
-      <button class="btn btn-primary" onclick="openAddModal()">+ Add your first paper</button>
+      <h2>Select a paper to read its summary</h2>
     </div>
     <div class="paper-detail hidden" id="paper-detail"></div>
   </main>
 </div>
 
-<!-- Add/Edit Modal -->
-<div class="modal-overlay hidden" id="modal-overlay">
-  <div class="modal">
-    <h2 id="modal-title">Add Paper</h2>
-    <div class="form-group">
-      <label>Title *</label>
-      <input type="text" id="f-title" placeholder="Full paper title" />
-    </div>
-    <div class="form-group">
-      <label>Authors</label>
-      <input type="text" id="f-authors" placeholder="e.g. Kim et al., 2023" />
-    </div>
-    <div class="form-group">
-      <label>Venue / Year</label>
-      <input type="text" id="f-venue" placeholder="e.g. CVPR 2023" />
-    </div>
-    <div class="form-group">
-      <label>Paper URL</label>
-      <input type="url" id="f-url" placeholder="https://arxiv.org/..." />
-    </div>
-    <div class="form-group">
-      <label>Professor / Lab</label>
-      <input type="text" id="f-professor" placeholder="e.g. Kee-Eung Kim" />
-    </div>
-    <div class="form-group">
-      <label>Topic / Keywords</label>
-      <input type="text" id="f-topic" placeholder="e.g. object detection, transformer" />
-    </div>
-    <div class="form-group">
-      <label>Abstract (optional)</label>
-      <textarea id="f-abstract" rows="3" placeholder="Paste abstract here..."></textarea>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="savePaper()">Save</button>
-    </div>
-  </div>
-</div>
-
 <script>
-  let papers = JSON.parse(localStorage.getItem('papers') || '[]');
-  let activePaperId = null;
-  let editingId = null;
-  let saveTimers = {};
+const PAPERS = [
+  {
+    id: 'p1',
+    professor: 'Kee-Eung Kim',
+    title: 'DPAIL: Training Diffusion Policy for Adversarial Imitation Learning without Policy Optimization',
+    authors: 'Yunseon Choi, Minchan Jeong, Soobin Um, Kee-Eung Kim',
+    venue: 'NeurIPS 2025',
+    url: 'asset/KeeEungKim/NeurIPS_Choi_2025.pdf',
+    topic: 'diffusion policy, imitation learning, adversarial IL',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>When a human expert demonstrates a task, they do not always do it the same way. A robot learning to cook might watch a person who sometimes grabs ingredients from the left side of the counter, sometimes from the right. These different but equally valid strategies form what researchers call a <strong>multimodal demonstration dataset</strong>. The challenge is: how do you teach an AI policy to reproduce this diversity instead of averaging it away into a single bland strategy?</p>
+<p>Traditional Adversarial Imitation Learning (AIL) methods, like GAIL, struggle here. They tend to collapse all behavior modes into one, missing the richness of the expert. More recent work using diffusion models as policy representations seemed promising — diffusion models can naturally represent multimodal distributions — but they came with a critical technical incompatibility with the most efficient AIL frameworks. This paper, DPAIL, resolves that incompatibility.</p>
 
-  // ── Persistence ──────────────────────────────────────────────
-  function persist() {
-    localStorage.setItem('papers', JSON.stringify(papers));
+<h3>Background: The Three Building Blocks</h3>
+<p><strong>Imitation Learning (IL)</strong> is the task of training an agent to behave like an expert by observing demonstrations, without access to an explicit reward signal. The simplest approach, Behavioral Cloning (BC), directly minimizes the difference between expert actions and predicted actions via supervised learning. It is simple but fails badly when the agent encounters states not seen in training, because small errors compound over time.</p>
+<p><strong>Adversarial Imitation Learning (AIL)</strong> reframes imitation as a distribution-matching problem. Instead of copying actions state-by-state, the agent tries to make its overall trajectory distribution match the expert's. The most famous version, GAIL, frames this as a game between a policy (generator) and a discriminator that tries to distinguish expert trajectories from agent trajectories. The policy is then trained via reinforcement learning to fool the discriminator. This requires alternating between two expensive optimization loops — updating the discriminator and updating the policy — which is computationally heavy and sometimes unstable.</p>
+<p><strong>ASAF (Adversarial Soft Advantage Fitting)</strong> is a clever simplification. It restructures the discriminator so that, at optimality, it directly encodes the updated policy. This means the policy update comes "for free" from the discriminator parameters — you only need to run one optimization loop, not two. However, ASAF requires that the policy's probability density can be evaluated in closed form (e.g., Gaussian, normalizing flow). Diffusion models generate samples via iterative denoising, so their exact likelihoods are intractable. ASAF simply cannot be applied naively to diffusion policies.</p>
+<p><strong>Diffusion Models</strong> are generative models that learn to reverse a noise-adding process. Starting from pure Gaussian noise, the model denoises step by step to produce a sample from the data distribution. They are particularly good at capturing complex, multimodal distributions. Diffusion-BC showed that diffusion policies could reproduce diverse human demonstrations better than Gaussian policies, but Diffusion-BC is pure behavioral cloning — it doesn't generalize well beyond demonstrations.</p>
+
+<h3>The Core Contribution: A Tractable Lower Bound</h3>
+<p>DPAIL's key insight is that even though you cannot directly compute the marginal likelihood <em>p_θ(τ)</em> of a diffusion policy, you can derive a tight <strong>lower bound</strong> on the ASAF objective that only requires computing noise prediction errors — which are cheap.</p>
+<p>The derivation proceeds as follows. ASAF's discriminator training objective involves a log-ratio of trajectory densities: log(p_θ(τ) / p_θ_old(τ)). For diffusion models, this ratio can be rewritten by expanding the joint densities over all diffusion timesteps and canceling common terms. What remains is a ratio of reverse-process transition probabilities. Taking an expectation over the forward noising process and applying Jensen's inequality (since log σ(·) is concave) yields a lower bound expressed entirely in terms of noise prediction errors.</p>
+<p>The resulting DPAIL training objective has two components:</p>
+<ul>
+<li><strong>Expert term</strong>: Encourage the current policy θ to predict noise on expert trajectories more accurately than the old policy θ_old. Intuitively: be better at "understanding" expert data.</li>
+<li><strong>Generator term</strong>: Discourage the current policy from being too good at predicting noise on its own generated trajectories. Intuitively: do not just memorize self-generated data.</li>
+</ul>
+<p>Both terms look like: log σ(N · (‖ε − ε_θ_old(τ, i)‖² − ‖ε − ε_θ(τ, i)‖²)). The difference in squared noise prediction errors, passed through a sigmoid, serves as the training signal. This is a minorization-maximization (MM) algorithm: each iteration maximizes a lower bound of the true objective, and the bound is tight at convergence (when θ = θ_old), guaranteeing monotonic improvement.</p>
+
+<h3>How DPAIL Differs from DRAIL</h3>
+<p>DRAIL also combines diffusion models with AIL and has a similar-looking loss formula involving differences of noise prediction errors. However, the two methods are fundamentally different in purpose. DRAIL uses a diffusion model as the <em>discriminator</em>, not the policy. The DRAIL policy is a standard unimodal Gaussian trained via RL using discriminator outputs as rewards. It therefore cannot represent multimodal behavior. DPAIL uses the diffusion model as the <em>policy</em> itself, so multimodal behavior is naturally captured in the generative distribution.</p>
+
+<h3>Practical Implementation Details</h3>
+<p>DPAIL generates fixed-horizon sub-trajectories of length H rather than full episode trajectories. The current state is injected at every diffusion step to condition the policy on the environment's current state. An important practical detail: when evaluating the generator term, the denoising error is clipped to prevent numerical instability from large prediction errors on out-of-distribution states. The full algorithm simply alternates between collecting trajectories with the current diffusion policy and updating the noise prediction network with the DPAIL objective.</p>
+
+<h3>Experiments and Results</h3>
+<p>DPAIL is evaluated on six environments: HalfCheetah, Walker2d, Ant, AntGoal (MuJoCo), and maze2d-medium and maze2d-large. These environments all have multimodal expert demonstrations (e.g., running forward vs. backward, navigating to multiple possible goals).</p>
+<p>Performance is measured on two dimensions simultaneously: <strong>normalized score</strong> (task success) and <strong>entropy</strong> (behavioral diversity, measured from trajectory embeddings). The key finding is that most methods trade off one for the other. GAIL, DiffAIL, and DRAIL achieve moderate to high scores but near-zero entropy — they collapse to a single mode. InfoGAIL and ASAF show some diversity but lower scores. DPAIL achieves both high score and high entropy across nearly all environments. For example, in Walker2d-v3: DPAIL achieves 0.78 score and 0.41 entropy, while GAIL gets 0.72 score but 0.00 entropy.</p>
+<p>Qualitative trajectory visualizations confirm that DPAIL's generated trajectories spread across all expert modes (all four ant directions, all maze goal positions), while other methods cluster around one mode. As the number of behavior modes is scaled up, DPAIL's entropy advantage grows — it handles complexity that breaks other methods.</p>
+
+<h3>Why This Matters</h3>
+<p>DPAIL is the first AIL framework that successfully combines the training efficiency of ASAF (no policy optimization loop) with the expressive power of diffusion policies (multimodal behavior). The derivation is mathematically elegant and practically straightforward. For the lab's broader research agenda in reinforcement and imitation learning, this represents a meaningful advance in making learned policies that are both capable and diverse — properties that matter for real-world robotics and autonomous agents where rigid, single-mode behavior is brittle.</p>
+`
+  },
+  {
+    id: 'p2',
+    professor: 'Kee-Eung Kim',
+    title: 'Dynamic VLM-Guided Negative Prompting for Diffusion Models',
+    authors: 'Hoyeon Chang, Seungjin Kim, Yoonseok Choi (KAIST)',
+    venue: 'NeurIPS 2025 Workshop',
+    url: 'asset/KeeEungKim/NeurIPSWS2025.pdf',
+    topic: 'diffusion models, negative prompting, VLM, content safety',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Text-to-image (T2I) diffusion models like Stable Diffusion are powerful but can generate unsafe or unwanted content from seemingly benign prompts. A common defense is <strong>negative prompting</strong>: you specify concepts you want to avoid (e.g., "nudity, violence") and the model is steered away from them using Classifier-Free Guidance (CFG). This is effective but has two significant weaknesses that this paper addresses.</p>
+<p>First, <strong>over-correction</strong>: if your negative prompt says "nudity" but the image wasn't going to include nudity anyway, the guidance actively pushes away from that concept and ends up distorting the image — semantic drift. The model unnecessarily sacrifices image quality to suppress something that wasn't present. Second, <strong>anticipation failure</strong>: you need to define your negative prompts before generation starts, but it is impossible to know in advance every problematic element that might emerge from a complex positive prompt. A prompt like "person at the beach" could lead to various problems depending on context, and a fixed set of negatives cannot cover all possibilities.</p>
+
+<h3>Background: How Negative Prompting Works</h3>
+<p>Classifier-Free Guidance (CFG) is the core mechanism. During denoising, instead of just following the conditional score ∇ log p(x|c+), the model computes a weighted combination: the unconditional score plus ω times the difference between conditional and unconditional scores. This pushes the generation toward the positive condition. Negative prompting extends this: you additionally compute a negative-condition score and steer <em>away</em> from it. The guidance scale ω_neg controls how strongly you push away from c⁻.</p>
+<p>The problem is that as ω_neg increases, you get safer images but the CLIP score (text-image alignment) and FID (image quality) both degrade — there is an inherent safety-fidelity trade-off. Previous work (Koulischer et al.) tried making the negative guidance scale dynamic based on estimated p_t(c⁻|x_t), but the negative prompt content itself was still fixed at inference start.</p>
+
+<h3>The VL-DNP Method</h3>
+<p>VL-DNP (Vision-Language guided Dynamic Negative Prompting) makes the negative prompt content itself dynamic. The key idea: during denoising, at selected timesteps, predict what the final image will look like, show it to a Vision-Language Model (VLM), and ask the VLM to identify problematic content and generate a targeted negative prompt. This dynamic negative prompt is then applied for subsequent denoising steps.</p>
+<p>Concretely, the pipeline works as follows:</p>
+<ul>
+<li>Standard CFG denoising begins with the positive prompt.</li>
+<li>At predefined timesteps T = {t₁, t₂, ...} (in the paper: timesteps 45, 44, 43, 41, 38, 34, 29, 23, 16, 8 out of 50 total), compute an intermediate prediction of the clean image x̂₀ using the current noisy latent.</li>
+<li>Feed x̂₀ to a VLM (Qwen2.5-VL-7B) with a prompt asking it to identify inappropriate content.</li>
+<li>The VLM returns a dynamic negative prompt (e.g., "Male breast, Buttocks" instead of a generic "nsfw").</li>
+<li>Use this specific negative prompt in CFG for subsequent denoising steps.</li>
+</ul>
+<p>The VLM query happens at multiple points, so as the image evolves, the negative prompt updates. If a problematic element disappears, the VLM stops flagging it. If a new problem emerges, the VLM catches it. This is fundamentally adaptive in a way that fixed prompts cannot be.</p>
+
+<h3>Why It Works Better: Two Reasons</h3>
+<p>First, <strong>specificity</strong>: A VLM generates narrow, concept-specific negative prompts rather than broad ones like "nsfw". "Male breast, Buttocks" suppresses exactly the problematic content without collaterally suppressing benign beach imagery. This reduces semantic drift. Second, <strong>temporal adaptivity</strong>: Prompts evolve during generation. Once an artifact disappears, the VLM stops applying pressure to suppress it, preventing over-suppression in later denoising steps.</p>
+
+<h3>Experimental Results</h3>
+<p>The paper evaluates on three safety datasets (Ring-a-Bell-16, P4D, Unlearn-Diff — all adversarial prompts designed to elicit unsafe content) and COCO-100 (general image quality). Metrics: Attack Success Rate (ASR, lower is safer), Toxic Rate (TR, lower is safer), CLIP score (higher = better text alignment), FID (lower = better image quality).</p>
+<p>The headline result: VL-DNP dominates the Pareto frontier in safety-vs-alignment trade-offs. At negative guidance scale ω_neg = 20, VL-DNP achieves ASR of 0.011 on Ring-a-Bell-16 with CLIP = 0.311 and FID = 15.3. Static negative prompting at the same scale achieves ASR = 0.025 with CLIP = 0.277 and FID = 152.5. This is striking: VL-DNP is safer (lower ASR) AND has 4× better text alignment AND 10× lower FID. Every static negative prompting point is Pareto-dominated by at least one VL-DNP point.</p>
+<p>The comparison to SAFREE (a training-free token embedding approach) is also informative: SAFREE preserves CLIP score well but achieves poor safety (ASR 0.30 on Ring-a-Bell-16), while VL-DNP achieves far better safety at comparable or better CLIP.</p>
+
+<h3>Limitations</h3>
+<p>The main cost is latency: VLM queries add significant overhead (29.6 seconds vs. 8–12 seconds for static approaches). The paper acknowledges this and suggests future work: caching intermediate predictions, querying less frequently, or using lighter-weight VLMs. Absolute safety also still depends on the guidance scale — VL-DNP shifts the frontier but does not make the model unconditionally safe at low guidance scales.</p>
+
+<h3>Why This Matters for the Lab's Research</h3>
+<p>This is a workshop paper from KAIST (the lab's institution), demonstrating the lab's interest in safe generative AI. It connects diffusion models with language models in an inference-time pipeline, showing the lab engages with both the theory (DPAIL) and practical safety applications (VL-DNP) of generative models. For a prospective student, understanding this paper shows awareness of the lab's dual focus on expressiveness and safety in generative modeling.</p>
+`
+  },
+  {
+    id: 'p3',
+    professor: 'Kee-Eung Kim',
+    title: 'MONET: Mixture of Monosemantic Experts for Transformers',
+    authors: 'Jungwoo Park, Young Jin Ahn, Kee-Eung Kim, Jaewoo Kang',
+    venue: 'ICLR 2025',
+    url: 'asset/KeeEungKim/9736_Monet_Mixture_of_Monosema.pdf',
+    topic: 'mechanistic interpretability, MoE, LLM, polysemanticity',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Large Language Models (LLMs) are powerful but opaque. We do not understand what concepts individual neurons encode, which makes it hard to trust, align, or edit their behavior. The core obstacle is <strong>polysemanticity</strong>: a single neuron responds to many unrelated concepts simultaneously. For example, a neuron in GPT-2 might activate for "banana," "yellow," and "tropical" — concepts that are related but could also respond to completely unrelated concepts in other contexts. This is not random — it arises because networks try to encode more features than they have neurons, using a compressed superposition.</p>
+<p><strong>Sparse Autoencoders (SAEs)</strong> were a promising post-hoc fix: train a sparse dictionary on the network's activations to disentangle these superposed features. SAEs have shown that individual "dictionary features" are often monosemantic (responding to a single concept). However, SAEs have two critical problems. First, they are trained on different data than the original model, causing distribution mismatch and degraded model performance when SAE features are steered. Second, using SAE features to control model behavior often breaks performance on other tasks — you can suppress toxicity but the model loses general capability.</p>
+
+<h3>The Core Idea: Build Interpretability Into Training</h3>
+<p>MONET (Mixture of Monosemantic Experts for Transformers) integrates sparse dictionary learning directly into the pretraining process via a Mixture-of-Experts (MoE) architecture. Instead of post-hoc decomposition, MONET trains the model end-to-end with many small, specialized experts per layer. The hypothesis is that with enough experts, each expert will naturally specialize in a narrow concept — monosemanticity arises from sufficient specialization pressure.</p>
+<p>The key number is 262,144 experts per layer. Standard MoE models (like Mixtral) use 8 to 64 experts — far too few for monosemanticity. With only a few dozen experts, each expert must cover many unrelated topics and remains polysemantic. MONET scales this to 2^18 experts, theoretically sufficient for fine-grained specialization.</p>
+
+<h3>The Expert Decomposition Trick</h3>
+<p>The obvious obstacle is memory: 262,144 experts × standard expert size = enormous parameter count. MONET solves this with a novel <strong>expert decomposition</strong>. Each expert is factored into a pair of "left" (Up) and "right" (Down) sub-experts:</p>
+<ul>
+<li>N left sub-experts, each with a projection matrix U_i ∈ R^{m×d}</li>
+<li>N right sub-experts, each with a projection matrix V_j ∈ R^{d×m}</li>
+<li>The full expert (i,j) is implicitly E_{i,j}(x) = V_j · σ(U_i · x)</li>
+</ul>
+<p>This gives N² expert combinations with only 2N parameter matrices. Total parameters scale as O(√N · m · d) instead of O(N · m · d). To select which expert to activate for a given input, MONET uses two sets of N routing keys (for left and right), and selects top-k₁ left experts and top-k₂ right experts. This decomposition is applied at every layer of the transformer, not just specific layers — ensuring uniform interpretability throughout the network.</p>
+
+<h3>Why Expert Specialization Implies Monosemanticity</h3>
+<p>The training process naturally encourages specialization: each expert is activated for only a tiny fraction of inputs (sparse routing). If the total number of experts is large enough, different experts end up specializing on different semantic concepts simply because there are enough "slots" to avoid packing multiple concepts into one expert. The superposition hypothesis predicts this: with more features available (more experts), there is less pressure to compress. MONET's analyses confirm that expert routing exhibits high mutual exclusivity — the set of inputs that activate expert A overlaps minimally with the set that activates expert B.</p>
+
+<h3>Knowledge Manipulation Without Performance Degradation</h3>
+<p>The most striking result is that MONET enables direct, surgical knowledge editing without hurting general performance. Three types of manipulation are demonstrated:</p>
+<ul>
+<li><strong>Domain suppression</strong>: Identify experts whose routing is correlated with a domain (e.g., medical text) by analyzing routing patterns on domain-specific data. Zero out or reduce the contribution of those experts. The model stops generating medical content without degrading performance on other domains.</li>
+<li><strong>Language manipulation</strong>: Similarly identify language-specific experts and suppress them to prevent generation in a specific language.</li>
+<li><strong>Toxicity mitigation</strong>: Identify experts that activate on toxic content and reduce their influence. Unlike SAE-based steering, this does not degrade overall language modeling quality because the manipulation is confined to truly task-specific experts.</li>
+</ul>
+<p>This is the key advantage over SAEs: because MONET experts are trained end-to-end as part of the model, suppressing an expert is equivalent to removing a genuine modular component of the computation — not fighting against an external decomposition that the model was not designed for.</p>
+
+<h3>Quantitative Results</h3>
+<p>MONET is evaluated on standard LLM benchmarks (language modeling perplexity, downstream tasks) against standard Transformers and SMoE baselines. Despite using 262K experts, MONET-HD achieves competitive perplexity and task performance. The expert decomposition maintains efficiency: inference time scales as O(√N · H · d) per layer rather than O(N · d), making it practical despite the huge expert count. The knowledge manipulation experiments show zero degradation on held-out tasks after domain/language/toxicity suppression — a result that SAE-based methods cannot match.</p>
+
+<h3>Why This Paper Matters</h3>
+<p>MONET represents a paradigm shift in interpretability: from post-hoc analysis to architecture-level design for transparency. It shows that mechanistic interpretability need not be a forensic exercise on a black box — you can build the interpretability in from the start. The paper connects MoE efficiency research with AI safety and alignment goals, which is a distinctive and impactful contribution. For Kee-Eung Kim's lab, which focuses on making AI systems that are capable, efficient, and aligned with human intent, MONET exemplifies the lab's synthesis of these goals. At ICLR 2025 (a top venue), this paper signals the lab's standing at the intersection of LLM architecture and AI safety.</p>
+`
+  },
+  {
+    id: 'p4',
+    professor: 'Beomjoon Kim',
+    title: 'PRESTO: Fast Motion Planning Using Diffusion Models Based on Key-Configuration Environment Representation',
+    authors: 'Mingyo Seo, Yoonyoung Cho, Yoonchang Sung, Peter Stone, Yuke Zhu, Beomjoon Kim',
+    venue: 'arXiv 2025 (cs.RO)',
+    url: 'asset/Beomjoon_Kim/2409.16012v2.pdf',
+    topic: 'motion planning, diffusion model, robotics, C-space, trajectory optimization',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Robot motion planning is the problem of finding a smooth, collision-free path from a start configuration to a goal configuration in a high-dimensional configuration space (C-space). Classical algorithms (RRT, PRM, CHOMP, TrajOpt) struggle in environments with narrow passages — regions where the collision-free space is geometrically thin and hard to find by random sampling or gradient descent. The combination of high dimensionality and narrow passages makes these methods computationally expensive or likely to fail.</p>
+<p>Learning-based approaches that use generative models to learn trajectory distributions offer a promising alternative: instead of searching from scratch each time, the model samples from a learned distribution of good trajectories. However, existing learning-based planners have a critical flaw: they use the <em>workspace</em> (3D positions of obstacles) as model input, and must learn to map workspace geometry to C-space obstacle geometry. This mapping is highly nonlinear, hard to generalize, and results in high collision rates on novel scenes. PRESTO fixes this by representing environments directly in C-space using key configurations.</p>
+
+<h3>Background: Configuration Space and Narrow Passages</h3>
+<p>The configuration space of a robot is the space of all possible joint angle vectors. A 7-DOF robot arm has a 7-dimensional C-space. Obstacles in the workspace create corresponding obstacles in C-space — but the shape of these C-space obstacles is complex and depends on the robot's geometry. Narrow passages in C-space correspond to tight clearances between obstacles in workspace. Sampling-based methods like RRT have low probability of sampling inside narrow passages; optimization methods often get trapped in local minima outside them.</p>
+<p>A good trajectory prior — a distribution that concentrates probability mass near feasible paths — dramatically speeds up planning. The question is how to learn such a prior without overfitting to specific training scenes.</p>
+
+<h3>The Key-Configuration Representation</h3>
+<p>PRESTO represents each environment not by its workspace geometry but by a set of <strong>key configurations</strong>: a sparse collection of robot configurations (joint angle vectors) from prior motion planning data that are geometrically informative about the current scene's C-space. Specifically, these are configurations that lie near C-space obstacle boundaries in previous planning problems — they encode where the C-space is tight.</p>
+<p>For each new scene, a small set of motion planning queries is first run to collect a few dozen key configurations. These configurations, along with binary labels (collision-free or colliding) and distances to obstacles, form the conditioning input φ to the diffusion model. The representation is: φ = [(q₁, d₁), (q₂, d₂), ..., (q_K, d_K)] where each q_i is a key configuration and d_i is its signed distance to the nearest C-space obstacle.</p>
+<p>Why does this work? The key insight is that C-space obstacles look similar across different scenes when expressed in terms of configurations near those obstacles. The model does not need to learn the workspace-to-C-space mapping — it directly sees C-space structure. This dramatically improves generalization to unseen scenes.</p>
+
+<h3>Training with Motion Planning Losses</h3>
+<p>Standard diffusion models for trajectory generation use reconstruction loss — predict the clean trajectory from a noisy one. This is agnostic to motion planning constraints (collision avoidance, smoothness). PRESTO integrates trajectory optimization costs directly into the diffusion model training:</p>
+<ul>
+<li><strong>Collision cost</strong>: Penalize trajectory waypoints that are in collision, using the C-space obstacle distances from the key-configuration representation.</li>
+<li><strong>Smoothness cost</strong>: Penalize high acceleration / jerk in the trajectory.</li>
+</ul>
+<p>These TrajOpt-inspired costs are added to the diffusion training objective alongside the standard DDPM reconstruction loss. As a result, the model learns to generate trajectories that are not just similar to training data but are inherently biased toward feasibility and smoothness. This is particularly important because the downstream trajectory optimization step needs a good initialization — a nearly-feasible trajectory requires only minor corrections.</p>
+
+<h3>The Three-Stage Pipeline</h3>
+<p>PRESTO operates in three stages at inference time:</p>
+<ul>
+<li><strong>Stage 1 (Environment Representation)</strong>: Run a few fast planning queries to collect key configurations characterizing the scene's C-space structure. Compute distances and collision labels.</li>
+<li><strong>Stage 2 (Diffusion Sampling)</strong>: Condition the diffusion model on the key-configuration representation φ and sample a seed trajectory. Due to the motion planning losses in training, this seed is often close to collision-free.</li>
+<li><strong>Stage 3 (Trajectory Optimization)</strong>: Feed the seed trajectory into TrajOpt to correct any remaining collisions. Since the seed is a good initialization, optimization converges quickly to a feasible solution without getting trapped in local minima.</li>
+</ul>
+<p>This pipeline combines the global search ability of the diffusion model (which can jump across the narrow passage by virtue of the learned distribution) with the local precision of trajectory optimization.</p>
+
+<h3>Results</h3>
+<p>PRESTO is evaluated in simulated environments with a robot arm operating in scenes with randomly placed obstacles, including challenging narrow-passage configurations. Compared to pure planning baselines (RRT*, BIT*) and pure learning baselines (DDPM without key configurations, other motion planning diffusion models), PRESTO achieves higher success rates in narrow passage environments while using significantly less computation. The key-configuration representation is critical: ablations show that using workspace representation instead yields much higher collision rates, confirming the importance of C-space grounding.</p>
+
+<h3>Why This Matters</h3>
+<p>PRESTO demonstrates a principled approach to combining learning and planning: let learning handle the hard global structure (where to go in C-space) and let optimization handle local refinement. The key-configuration representation is a general-purpose tool for grounding learned models in C-space geometry. For Beomjoon Kim's lab, which focuses on robot learning and planning at KAIST, this paper exemplifies the lab's approach: bridging classical planning theory with modern machine learning to make robots faster, more generalizable, and reliable in complex environments.</p>
+`
+  },
+  {
+    id: 'p5',
+    professor: 'Beomjoon Kim',
+    title: 'Prime the Search: Using LLMs for Guiding Geometric Task and Motion Planning by Warm-starting Tree Search',
+    authors: 'Dongryung Lee, Sejune Joo, Kimin Lee, Beomjoon Kim',
+    venue: 'IJRR (submission)',
+    url: 'asset/Beomjoon_Kim/STaLM_IJRR_submission_.pdf',
+    topic: 'task and motion planning, LLM, MCTS, robotics',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Imagine a robot in a restaurant kitchen tasked with: bring the wine from Table 1, the Coke from Counter 1, and the BBQ grill to Counter 2. The grill is already at Counter 2 but blocking the other items. A closed door separates the kitchen and dining area. To succeed, the robot must: open the door, temporarily move the grill, place the wine and Coke, then replace the grill. This is a <strong>Geometric Task and Motion Planning (G-TAMP)</strong> problem: it involves planning a sequence of discrete actions (which objects to move, which skills to use) and continuous parameters (exact grasp poses, trajectories), all subject to complex geometric constraints (reachability, collision avoidance).</p>
+<p>G-TAMP is hard because the search space is exponentially large (many possible action sequences) and evaluating each candidate requires expensive motion planning calls to check geometric feasibility. The paper's goal: use the common-sense knowledge of Large Language Models (LLMs) to dramatically prune this search.</p>
+
+<h3>Two Classical Approaches and Their Limits</h3>
+<p><strong>Pure planning approaches</strong> use domain-independent heuristics (like h_max from AI planning) combined with sampling or optimization to handle continuous parameters. They are general but cannot leverage domain-specific knowledge. The planning algorithm must explore many dead-end paths before identifying the root cause of infeasibility. For example, to discover that the door needs to be opened, it first tries to plan a path with the door closed, fails, backtracks, and then considers alternatives. This can require hundreds of failed motion planning calls.</p>
+<p><strong>Learning-based approaches</strong> train neural networks or other models on planning experience to learn domain-specific heuristics or constraints. They can be fast but require large amounts of expensive planning data to train on. Collecting this data is slow (each planning episode requires many motion planning calls) and the learned models may not generalize outside the training distribution.</p>
+<p><strong>LLM-based approaches</strong> (prior work like SayCan) use LLMs to generate plans directly. The problem: LLMs make geometric reasoning errors. They may suggest moving an object that is blocked, or forget to open a door. If you blindly execute the LLM's plan, failure is common. If you call the LLM at every step of a tree search (as some approaches do), the computational cost is prohibitive — LLM inference is slow.</p>
+
+<h3>The STaLM Approach: Warm-Starting MCTS</h3>
+<p>STaLM (Search by Task and Language Models) takes a middle path: use the LLM to generate one initial task plan, then use this plan to warm-start a Monte Carlo Tree Search (MCTS). The LLM is consulted exactly once at the beginning, not at every search node.</p>
+<p>The process works as follows:</p>
+<ul>
+<li><strong>Geometric state encoding</strong>: The current scene is described to the LLM using a predicate-based representation: which objects are blocking which, current door states, reachability constraints derived from a motion planning feasibility check. This is a structured geometric description in natural language.</li>
+<li><strong>LLM plan generation</strong>: The LLM generates a task plan (ordered sequence of discrete actions: pick X, place X at Y, open door, etc.). This plan represents the LLM's commonsense best guess at a solution.</li>
+<li><strong>MCTS warm-starting</strong>: Execute the LLM's plan in simulation (attempting each action in order, using motion planning to find continuous parameters). All nodes encountered during this execution — including both successful and failed steps — are added to the MCTS tree. This pre-populates the tree with a promising initial path and any dead-ends the LLM hit, effectively giving MCTS a head start.</li>
+<li><strong>MCTS continuation</strong>: From the warm-started tree, MCTS continues to explore. It is not committed to the LLM's plan — if the LLM made geometric errors, MCTS can backtrack and find alternative sequences. But because the LLM's guidance is often directionally correct, the warm-started tree is a much better starting point than an empty tree.</li>
+</ul>
+
+<h3>Technical Details: Hybrid MCTS</h3>
+<p>Standard MCTS is designed for discrete action spaces. G-TAMP has a hybrid action space: discrete choices (which object, which skill) and continuous parameters (exact grasp poses, placement positions). STaLM extends MCTS to handle this hybrid space. The discrete part of the action is selected by MCTS's UCB (Upper Confidence Bound) policy. The continuous parameters are sampled from a distribution conditioned on the discrete action and geometric constraints, using motion planning to check feasibility. The rollout policy in MCTS uses a learned value function trained on the planning experience, biased by the LLM's suggestions at each node.</p>
+
+<h3>The Predicate-Based Prompt Design</h3>
+<p>Getting the LLM to reason about geometry requires careful prompt engineering. The key is converting geometric relationships into logical predicates that the LLM can reason about in language. Examples: "BLOCKING(grill, counter2)" (grill blocks counter2 from receiving other objects), "REACHABLE(door)" (door can be manipulated from current robot position), "CLOSED(door)". This representation is derived from the motion planning system's feasibility analysis — if motion planning failed to place X because Y is in the way, we add BLOCKING(Y, X) to the predicate set. The LLM receives these predicates as part of its prompt and can reason causally: "because BLOCKING(grill, counter2) and CLOSED(door), I must first OPEN(door), then PICK(grill), then PLACE(grill, temp_location)..."</p>
+
+<h3>Experiments</h3>
+<p>STaLM is evaluated on six G-TAMP benchmark problems of varying complexity (2 to 8 movable obstacles, different room configurations). Baselines: pure MCTS without warm-starting, LLM direct execution (commit to LLM plan without search), and prior work that calls LLM at every MCTS node. STaLM substantially outperforms all baselines on planning success rate and computational efficiency. The warm-starting gives MCTS a strong advantage in complex scenes where pure search would take far too long. The one-time LLM call keeps computational cost low compared to per-node LLM querying.</p>
+
+<h3>Why This Matters</h3>
+<p>STaLM is a principled example of the "LLMs as heuristics, not oracles" philosophy. Rather than trusting the LLM to solve the problem end-to-end (which it cannot reliably do for geometric reasoning), it uses the LLM's common-sense knowledge to guide a rigorous search algorithm. This hybrid approach is robust: if the LLM is wrong, MCTS corrects it; if the LLM is right, MCTS finds the solution faster. For Beomjoon Kim's lab, this represents a key research direction: combining classical planning algorithms with modern AI capabilities (LLMs, learned models) to make robot task planning more capable and efficient in complex real-world environments.</p>
+`
+  },
+  {
+    id: 'p6',
+    professor: 'Seungryong Kim',
+    title: 'WorldCam: Interactive Autoregressive 3D Gaming Worlds with Camera Pose as a Unifying Geometric Representation',
+    authors: 'Jisu Nam, Yicong Hong, Chun-Hao Paul Huang, Feng Liu, JoungBin Lee, Jiyoung Kim, Siyoon Jin, Yunsung Lee, Jaeyoon Jung, Suhwan Choi, Seungryong Kim, Yang Zhou',
+    venue: 'arXiv 2026 (cs.CV)',
+    url: 'asset/SeungryongKim/2603.16871v1.pdf',
+    topic: 'video generation, gaming world model, camera pose, 3D consistency, video DiT',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Recent advances in video generation have produced models that can create photorealistic, coherent video sequences. Researchers have tried to turn this capability into <strong>interactive gaming world models</strong>: AI systems that generate a game world in real time as a player moves through it. You press W to move forward, and the model generates the next frames. Press mouse-left, and the view rotates. The dream is an AI that acts as an infinite, playable game engine.</p>
+<p>Two fundamental problems block this dream. First, <strong>imprecise action control</strong>: existing models treat keyboard/mouse inputs as abstract conditioning signals — they inject the raw input into the model and hope it learns the correspondence with visual change. This is geometrically wrong. A keyboard press translates into a specific 3D camera motion, and that motion follows rigid geometric laws. Without respecting this geometry, the model produces misaligned camera movements and unnatural-looking motion. Second, <strong>long-horizon 3D inconsistency</strong>: when you walk to the end of a corridor, turn around, and walk back, the corridor should look the same as before. But existing models generate each frame based only on recent context, with no memory of what the corridor looked like before you turned. The result: the world subtly (or not so subtly) changes as you revisit locations.</p>
+
+<h3>The Core Insight: Camera Pose as a Unifying Representation</h3>
+<p>WorldCam's central contribution is establishing <strong>camera pose as the single geometric representation that solves both problems at once</strong>. Camera pose (position + orientation in 3D space) is not just a control signal — it is the geometric link between user actions and the 3D world. If you know where the camera is in 3D space, you know exactly what the scene should look like. WorldCam exploits this by:</p>
+<ul>
+<li>Translating user inputs into geometrically accurate 6-DoF camera poses (solving the action control problem)</li>
+<li>Using global camera pose as a memory index to retrieve and incorporate past observations (solving the 3D consistency problem)</li>
+</ul>
+
+<h3>Physics-Based Action-to-Pose Mapping</h3>
+<p>User inputs in games are combinations of keyboard presses and mouse movements. A naive approach linearly interpolates these inputs to get approximate camera movement. WorldCam instead models user actions as <strong>spatial velocities in the Lie algebra se(3)</strong> — the mathematical space associated with the group of 3D rigid body transformations SE(3). This is the physically correct way to compose coupled rotational and translational motions (like moving forward while turning, which traces a helical path called a screw motion, not a linear interpolation).</p>
+<p>The precise relative camera pose between frames is derived by exponentiating the spatial velocity, yielding a rotation matrix and translation vector. This relative pose is accumulated over time to produce a global camera pose trajectory. The camera pose is then encoded as <strong>Plücker embeddings</strong> (a representation of lines in 3D projective space that is particularly suited for camera-to-scene geometry) and injected into the intermediate features of the video DiT model via a camera embedder module. This ensures the generated video precisely follows the intended camera motion.</p>
+
+<h3>Long-Horizon 3D Consistency via Pose-Based Memory Retrieval</h3>
+<p>To ensure that revisiting a location generates consistent imagery, WorldCam maintains a <strong>Long-Term Memory Pool</strong>: a buffer of previously generated video latents (compressed representations of past frames) indexed by their global camera poses. When generating new frames at pose P_current, the model retrieves past latents whose associated camera poses are similar to P_current (within some distance threshold in pose space). These retrieved latents are concatenated with the current latent sequence and fed into the video DiT. Their pose embeddings provide explicit geometric correspondences between what the model is generating now and what it generated before at the same location.</p>
+<p>This mechanism is analogous to visual place recognition in robotics: the robot recognizes when it has been somewhere before and retrieves the stored map. WorldCam does the same, but in continuous video generation. The result is that the generated world is geometrically self-consistent across arbitrary navigation — you can walk in a circle and the world closes back on itself.</p>
+
+<h3>The WorldCam Dataset</h3>
+<p>A major contribution is a new dataset: 3,000 minutes of authentic human gameplay annotated with camera trajectories and textual descriptions. Existing public datasets for gaming world models are limited to Minecraft (simple, blocky geometry) or use closed-license commercial games. WorldCam's dataset covers complex, realistic environments (industrial interiors, snowy exteriors, futuristic cities) with 6-DoF camera trajectories derived from game engine metadata. This dataset enables training on real human navigation dynamics, capturing the variability and naturalness of how people actually move through 3D spaces.</p>
+
+<h3>Experimental Results</h3>
+<p>WorldCam is evaluated on three dimensions: action controllability, long-horizon visual quality, and 3D spatial consistency. On action controllability metrics (comparing generated vs. intended camera trajectories), WorldCam substantially outperforms prior interactive gaming models. On long-horizon quality (FID/FVD measured over extended navigation sequences), WorldCam maintains high quality where baselines degrade. On 3D consistency (measured by depth estimation consistency and visual similarity when revisiting locations), WorldCam is the first model to achieve meaningful consistency in revisiting scenarios. Qualitative results show the model tracking keyboard/mouse inputs precisely and the world remaining stable across turns and revisits.</p>
+
+<h3>Why This Matters</h3>
+<p>WorldCam shows that geometric reasoning — specifically, camera pose as a 3D geometric entity — dramatically improves the quality of interactive world generation. It is a clean example of embedding domain knowledge (3D geometry, Lie groups) into neural generative models to solve problems that scale-alone cannot fix. For Seungryong Kim's CVLAB at KAIST, this represents a flagship result connecting computer vision (camera pose estimation, 3D consistency), video generation (video DiTs), and interactive AI systems — themes central to the lab's research agenda.</p>
+`
+  },
+  {
+    id: 'p7',
+    professor: 'Seungryong Kim',
+    title: 'TETO: Tracking Events with Teacher Observation for Motion Estimation and Frame Interpolation',
+    authors: 'Jini Yang, Eunbeen Hong, Soowon Son, Hyunkoo Lee, Sunghwan Hong, Sunok Kim, Seungryong Kim',
+    venue: 'arXiv 2026 (cs.CV)',
+    url: 'asset/SeungryongKim/2603.23487v1.pdf',
+    topic: 'event camera, motion estimation, optical flow, video frame interpolation, knowledge distillation',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Standard video cameras capture frames at a fixed rate (e.g., 30 or 60 fps). Between frames, fast-moving objects can blur or jump discontinuously. <strong>Event cameras</strong> are a fundamentally different type of sensor: instead of capturing full frames at regular intervals, they record individual pixel-level brightness changes asynchronously, with microsecond timing precision. Each event is a tuple (x, y, timestamp, polarity) — pixel location, when it changed, and whether it got brighter or darker. This results in a sparse, asynchronous stream of data that captures motion information with far higher temporal resolution than frame cameras.</p>
+<p>Event cameras are potentially transformative for motion estimation (optical flow, point tracking) under fast motion or challenging lighting conditions — exactly where frame-based methods fail. The problem: training event-based motion estimators requires large datasets with ground-truth flow or trajectory annotations. Existing approaches rely on synthetic datasets generated by event camera simulators, but these suffer from a <strong>sim-to-real gap</strong>: the simulated events do not perfectly match real event camera physics, so models trained on simulated data perform poorly on real data. Collecting real-world data with ground-truth annotations is expensive and limited.</p>
+
+<h3>The TETO Approach: Teacher-Student Distillation from RGB</h3>
+<p>TETO (Tracking Events with Teacher Observation) proposes a clever solution: use a pretrained RGB-based point tracker as a teacher to supervise an event-based student, using only <strong>~25 minutes of unannotated real-world video</strong> (captured simultaneously with a co-located event camera and RGB camera).</p>
+<p>The insight: a strong RGB tracker already knows how to estimate point trajectories in normal-speed video. Event cameras observe the same scene simultaneously. By matching the event camera's motion estimates to the RGB tracker's motion estimates on the same real scenes, the event model learns to mimic the RGB model's accuracy on real data — without needing synthetic events or ground-truth flow annotations.</p>
+<p>This is a form of <strong>cross-modal knowledge distillation</strong>: the teacher (RGB tracker) operates in one modality (frames), the student (event estimator) operates in another (events), and supervision is provided by requiring the student to match the teacher's outputs on paired real-world data.</p>
+
+<h3>Key Challenges and Solutions</h3>
+<p><strong>Challenge 1: Dominant ego-motion</strong>. In most video data, the camera itself is moving. This ego-motion dominates the event stream, making it hard to learn about object motion (which is often the actual target). TETO uses <strong>motion-aware data curation</strong>: it identifies video clips where object motion is significant relative to ego-motion (using the RGB tracker to detect independently moving objects) and over-samples these clips during training. This ensures the student learns to separate object motion from camera motion.</p>
+<p><strong>Challenge 2: Limited and imbalanced data</strong>. 25 minutes of data is small. To maximize learning, TETO uses a <strong>query sampling strategy</strong> that focuses supervision on pixels with high uncertainty (pixels where the RGB tracker is most informative) and ensures balanced sampling across motion magnitudes and directions. This is analogous to active learning — spend supervision budget where it matters most.</p>
+<p><strong>Challenge 3: Joint prediction of trajectories and flow</strong>. TETO's event estimator jointly predicts both point trajectories (long-range tracking of specific points) and dense optical flow (per-pixel motion vectors). These are related but different representations. Joint prediction enables the model to internally reconcile them, using trajectory consistency as a regularizer for flow estimation and vice versa.</p>
+
+<h3>Using Motion Estimates for Frame Interpolation</h3>
+<p>Once TETO produces accurate motion estimates from events, these estimates serve as explicit <strong>motion priors</strong> to condition a video diffusion transformer for frame interpolation. Frame interpolation = generating a realistic intermediate frame between two existing frames. Knowing where each pixel moved (from the event camera's motion estimate) greatly constrains the interpolation problem. The diffusion model, conditioned on these motion priors, generates interpolated frames that are both visually plausible and physically consistent with the observed motion. This two-stage pipeline (event-based motion estimation → diffusion-based interpolation) outperforms methods that try to do both in one step.</p>
+
+<h3>Results</h3>
+<p>TETO achieves state-of-the-art point tracking on EVIMO2 (an event camera benchmark) and state-of-the-art optical flow on DSEC — using 12× less training data than the next-best method ETAP (~5 hours of data) and orders of magnitude less than other baselines. The frame interpolation results on BS-ERGB and HQ-EVFI also set new state-of-the-art, demonstrating that accurate event-based motion estimation directly translates to better frame interpolation. The teacher-student approach successfully bridges the sim-to-real gap that has limited prior event-based methods.</p>
+
+<h3>Why This Matters</h3>
+<p>TETO demonstrates a highly practical approach to a data scarcity problem: instead of collecting expensive annotated data, leverage cheap co-captured RGB data and an existing strong model as a teacher. This paradigm — cross-modal distillation from strong RGB models to specialized sensors — is broadly applicable. For Seungryong Kim's lab, which works at the intersection of video understanding, novel sensing modalities, and generative models, TETO shows how to combine these threads: event cameras for precise motion sensing, knowledge distillation for efficient training, and video diffusion for high-quality synthesis.</p>
+`
+  },
+  {
+    id: 'p8',
+    professor: 'Seungryong Kim',
+    title: 'AgentRVOS: Reasoning Over Object Tracks for Zero-Shot Referring Video Object Segmentation',
+    authors: 'Woojeong Jin, Jaeho Lee, Heeseong Shin, Seungho Jang, Junhwan Heo, Seungryong Kim',
+    venue: 'arXiv 2026 (cs.CV)',
+    url: 'asset/SeungryongKim/2603.23489v1.pdf',
+    topic: 'video object segmentation, LLM agent, zero-shot, referring expression',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Given a video and a text query like "the monkey that takes nothing," segment the referred object frame-by-frame throughout the video. This is <strong>Referring Video Object Segmentation (RVOS)</strong> — a core task in video understanding that combines object tracking (following objects over time) with language grounding (understanding what the text query refers to).</p>
+<p>The standard approach trains a neural network end-to-end with (video, text query, segmentation mask) triplets. This works well on in-distribution data but requires curated training sets for each query type and still struggles with complex, multi-object reasoning. The query "the monkey that takes nothing" requires the model to: (1) identify all monkeys in the video, (2) observe what each monkey does over the video's duration, (3) determine which monkey is the one that never takes anything, and (4) segment that monkey. This is a multi-step reasoning task that feed-forward neural networks handle poorly.</p>
+<p>AgentRVOS addresses this with a <strong>zero-shot agent</strong> — no task-specific training required — that reasons over object tracks using a VLM-based agent with iterative spatio-temporal pruning.</p>
+
+<h3>The AgentRVOS Pipeline</h3>
+<p>The system operates in two main stages:</p>
+<p><strong>Stage 1: Candidate Mask Track Generation</strong>. First, detect and segment all candidate objects in the video using a video object segmentation model (SAM3 — Segment Anything Model for video). This produces a set of candidate mask tracks: for each candidate object, a sequence of segmentation masks across all frames. These tracks correspond to "all the things that might be what the query refers to."</p>
+<p><strong>Stage 2: Iterative Spatio-temporal Pruning by an Agent</strong>. An LLM/VLM agent iteratively reasons over the candidate tracks to eliminate ones that cannot be the referred object. The agent processes the tracks in rounds:</p>
+<ul>
+<li><strong>Round 1</strong>: The agent first identifies what category of object the query refers to. For "the monkey that takes nothing," it identifies "Monkey" and eliminates all non-monkey tracks. This is a semantic filtering step: any track that the VLM determines is not a monkey is removed.</li>
+<li><strong>Round 2+</strong>: The agent now has to distinguish between multiple monkey candidates. It reasons about the temporal behavior described in the query ("takes nothing"). It renders the remaining candidate tracks as labeled video regions and asks the VLM to judge which candidates exhibit the described behavior over time. Candidates that clearly exhibit the behavior (taking something) are rejected. Candidates about which the agent is uncertain are kept for further rounds.</li>
+<li><strong>Iteration until convergence</strong>: The pruning continues until only one candidate remains (or the agent selects the most likely candidate). Each round uses the VLM to make binary accept/reject decisions or flag uncertainty, enabling efficient pruning of the candidate set.</li>
+</ul>
+
+<h3>Why "Reasoning Over Tracks" Is Key</h3>
+<p>The critical innovation is that the agent reasons over <em>entire temporal tracks</em>, not individual frames. For a query like "the person who never sits down," reasoning on a per-frame basis is impossible — whether someone "never sat down" can only be determined by observing them over the entire video duration. By representing candidates as tracks (sequences of masks over time), the agent can apply temporal predicates ("did X happen at some point in the video?") that require holistic temporal understanding.</p>
+<p>The VLM is queried with a visualization of each track rendered as a labeled video clip: for each candidate track, the object's region is highlighted in each frame, and the agent watches this "track video" to evaluate whether the temporal description applies. This converts an abstract temporal reasoning problem into a visual question answering problem that VLMs can handle.</p>
+
+<h3>Zero-Shot Generalization</h3>
+<p>AgentRVOS requires no training on RVOS-specific data. It composes three pre-trained components: a video segmentation model (SAM3), a vision-language model for reasoning, and the agent logic (prompts and iteration strategy). This makes it immediately applicable to any new query type without data collection or fine-tuning. The agent adapts its reasoning strategy based on the content of the query, rather than following a fixed decision procedure.</p>
+
+<h3>Results and Significance</h3>
+<p>AgentRVOS achieves competitive or superior performance to supervised baselines on RVOS benchmarks, despite using no task-specific training. On queries requiring complex temporal reasoning (multi-step actions, negations, comparative descriptions), AgentRVOS significantly outperforms methods that lack explicit temporal reasoning. The iterative pruning is efficient: most candidate sets are pruned to a single object within 2-3 rounds.</p>
+<p>For Seungryong Kim's lab, AgentRVOS represents the trend of using LLM/VLM agents for video understanding tasks that require compositional, multi-step reasoning — a research direction that complements the lab's work on video generation (WorldCam) and motion estimation (TETO). The common thread is building AI systems that understand and generate video with deep spatio-temporal awareness.</p>
+`
+  },
+  {
+    id: 'p9',
+    professor: 'Seungryong Kim',
+    title: 'DA-Flow: Degradation-Aware Optical Flow Estimation with Diffusion Models',
+    authors: 'Jaewon Min, Jaeeun Lee, Yeji Choi, Paul Hyunbin Cho, Jin Hyeon Kim, Tae-Young Lee, Jongsik Ahn, Hwayeong Lee, Seonghyun Park, Seungryong Kim',
+    venue: 'arXiv 2026 (cs.CV)',
+    url: 'asset/SeungryongKim/2603.23499v1.pdf',
+    topic: 'optical flow, diffusion model, image degradation, robustness, dense correspondence',
+    status: 'unread',
+    summary: `
+<h3>What Problem Does This Paper Solve?</h3>
+<p>Optical flow estimation — computing per-pixel motion vectors between consecutive video frames — is a foundational task in computer vision, enabling autonomous driving, action recognition, video stabilization, and more. Modern deep learning methods have achieved impressive results, but almost all of them assume <strong>clean, high-quality input video</strong>. Real-world video is rarely clean: it suffers from motion blur (from camera or object motion), sensor noise, JPEG/video compression artifacts, and low resolution. When state-of-the-art optical flow models encounter these degradations, their performance degrades severely.</p>
+<p>This is not merely a robustness problem to be ignored — degraded video is the norm in many deployment scenarios. Surveillance cameras operate under poor lighting. Dashcams record at high compression rates. Medical imaging equipment produces noisy video. The question DA-Flow addresses: can we achieve accurate optical flow estimation specifically from degraded input video, by designing a method that is aware of and robust to degradations?</p>
+
+<h3>The Key Insight: Diffusion Features Are Corruption-Aware</h3>
+<p>Image restoration diffusion models (e.g., models trained to denoise, deblur, or super-resolve images) have learned rich internal representations that encode both the content of an image and the type/severity of corruption present. The intermediate feature maps of these models — computed during the denoising process — inherently contain corruption-aware information: they "know" what kind of noise or blur is present because they were trained to remove it.</p>
+<p>The key insight of DA-Flow: these corruption-aware features could be used for optical flow estimation. A feature that understands "this region is blurred in this particular way" can potentially establish correspondences between frames in a degradation-robust manner, because it reasons about the underlying clean content rather than the corrupted appearance.</p>
+<p>However, image restoration diffusion models are designed for single images — they have no temporal awareness, no concept of motion between frames. DA-Flow's contribution is <strong>lifting these features to be temporally aware</strong> by adding full spatio-temporal attention across adjacent frames, enabling them to reason about inter-frame correspondence.</p>
+
+<h3>The DA-Flow Architecture</h3>
+<p>DA-Flow is a hybrid architecture combining two types of features:</p>
+<p><strong>Diffusion Features (corruption-aware)</strong>: Intermediate activations from a pretrained image restoration diffusion model, processed at a specific noise level. To make these features temporally aware, DA-Flow adds cross-frame attention: feature maps from frame t and frame t+1 attend to each other using full spatio-temporal attention. This allows the features to identify which regions of frame t+1 correspond to which regions of frame t, even when both frames are corrupted.</p>
+<p>An important empirical finding: with the added cross-frame attention, these diffusion features exhibit <strong>zero-shot correspondence capabilities</strong>. Without any task-specific training on optical flow, the diffusion features with cross-frame attention can already establish rough correspondences between degraded frames. This demonstrates that the corruption-aware representations generalize to cross-frame matching, not just single-frame restoration.</p>
+<p><strong>Convolutional Features (motion-specialized)</strong>: Standard convolutional feature extractors trained for optical flow capture fine-grained motion details (sub-pixel accuracy, sharp boundaries). These complement the diffusion features, which capture robust correspondences but may lack precise localization.</p>
+<p><strong>Iterative Refinement Framework</strong>: Following the RAFT architecture (a state-of-the-art optical flow method), DA-Flow uses an iterative update module that progressively refines the estimated flow field. At each iteration, both diffusion features and convolutional features are used to compute correlation volumes (measuring similarity between candidate matching points). The dual-feature correlation is fused by a learned weighting mechanism, then passed to an update operator (GRU) that incrementally refines the flow estimate.</p>
+
+<h3>Why This Combination Works</h3>
+<p>The core argument is complementarity. Convolutional features trained on clean data are precise but brittle under corruption — they match specific visual patterns that degrade under blur or noise. Diffusion features are imprecise in localization but robust to corruption — they match based on semantic content and degradation type rather than exact pixel appearance. Together, they form a hybrid that is both robust and precise: diffusion features provide a robust coarse correspondence, convolutional features refine it.</p>
+<p>The fusion weight is learned, so the model can adaptively rely more on diffusion features when corruption is severe and more on convolutional features when inputs are clean. This soft switching is more flexible than hard architectural choices.</p>
+
+<h3>A New Task: Degradation-Aware Optical Flow</h3>
+<p>DA-Flow also introduces this as a formal task definition, building on recent benchmark work (RobustSpring) that comprehensively studied optical flow robustness. The distinction from robustness: robustness asks "how well does a clean-trained model generalize to degraded inputs?" Degradation-aware flow asks "can we design a model that is specifically accurate on degraded inputs?" — a more ambitious and practically important goal.</p>
+
+<h3>Results</h3>
+<p>DA-Flow is evaluated on standard optical flow benchmarks (Sintel, KITTI) with synthetically applied degradations (motion blur, Gaussian noise, JPEG compression, low resolution) and on real degraded video benchmarks. DA-Flow substantially outperforms existing optical flow methods under severe degradation across all conditions. On clean data, DA-Flow remains competitive with non-degraded baselines, demonstrating that adding degradation awareness does not sacrifice clean-data performance. The zero-shot correspondence result from diffusion features alone is particularly striking — achieving competitive flow estimation without any flow-specific training.</p>
+
+<h3>Why This Matters</h3>
+<p>DA-Flow demonstrates a powerful principle: features learned for one task (image restoration) can be repurposed for a related but different task (motion estimation) by adding targeted architectural modifications (cross-frame attention). This transfer of inductive biases across tasks — here, transferring "what degradation looks like" to "how to match degraded frames" — is an increasingly important design principle in modern computer vision. For Seungryong Kim's lab, DA-Flow sits at the intersection of dense prediction (optical flow), generative models (diffusion), and real-world deployment robustness — themes the lab explores across multiple papers in this collection.</p>
+`
   }
+];
 
-  function getPaper(id) {
-    return papers.find(p => p.id === id);
-  }
+let activePaperId = null;
+const statusStore = JSON.parse(localStorage.getItem('paper_status') || '{}');
 
-  // ── Sidebar ───────────────────────────────────────────────────
-  function renderSidebar(filter = '') {
-    const list = document.getElementById('paper-list');
-    const q = filter.toLowerCase();
-    const filtered = q
-      ? papers.filter(p => p.title.toLowerCase().includes(q) || (p.authors||'').toLowerCase().includes(q) || (p.topic||'').toLowerCase().includes(q))
-      : papers;
+function getStatus(id) { return statusStore[id] || 'unread'; }
+function setStatus(id, val) { statusStore[id] = val; localStorage.setItem('paper_status', JSON.stringify(statusStore)); }
 
-    if (filtered.length === 0) {
-      list.innerHTML = `<div style="padding:20px 16px;font-size:13px;color:var(--muted);text-align:center">No papers found</div>`;
-    } else {
-      // Group by professor (derived from topic or first author's last word)
-      const groups = {};
-      filtered.forEach(p => {
-        const prof = p.professor || 'Other';
-        if (!groups[prof]) groups[prof] = [];
-        groups[prof].push(p);
-      });
-      list.innerHTML = Object.entries(groups).map(([prof, ps]) => `
-        ${Object.keys(groups).length > 1 ? `<div style="padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;border-top:1px solid var(--border)">${escHtml(prof)}</div>` : ''}
-        ${ps.map(p => `
-          <div class="paper-item ${p.id === activePaperId ? 'active' : ''}" onclick="selectPaper('${p.id}')">
-            <div class="paper-item-title">${escHtml(p.title)}</div>
-            <div class="paper-item-meta">${p.venue ? escHtml(p.venue) : ''}</div>
-            <span class="paper-item-status status-${p.status}">${statusLabel(p.status)}</span>
-          </div>`).join('')}
-      `).join('');
-    }
+function renderSidebar(filter = '') {
+  const list = document.getElementById('paper-list');
+  const q = filter.toLowerCase();
+  const filtered = q
+    ? PAPERS.filter(p => p.title.toLowerCase().includes(q) || p.authors.toLowerCase().includes(q) || p.topic.toLowerCase().includes(q))
+    : PAPERS;
 
-    // stats
-    document.getElementById('stat-total').textContent = papers.length;
-    document.getElementById('stat-reading').textContent = papers.filter(p => p.status === 'reading').length;
-    document.getElementById('stat-done').textContent = papers.filter(p => p.status === 'done').length;
-  }
-
-  function statusLabel(s) {
-    return s === 'unread' ? 'Unread' : s === 'reading' ? 'Reading' : 'Done';
-  }
-
-  // ── Select paper ──────────────────────────────────────────────
-  function selectPaper(id) {
-    activePaperId = id;
-    renderSidebar(document.getElementById('search-input').value);
-    renderDetail();
-  }
-
-  // ── Detail ────────────────────────────────────────────────────
-  function renderDetail() {
-    const p = getPaper(activePaperId);
-    document.getElementById('empty-state').classList.add('hidden');
-    const det = document.getElementById('paper-detail');
-    det.classList.remove('hidden');
-
-    const concepts = (p.concepts || []).map((c, i) => `
-      <div class="concept-item">
-        <span class="concept-term">${escHtml(c.term)}</span>
-        <span class="concept-def">${escHtml(c.def)}</span>
-        <button class="concept-del" onclick="deleteConcept(${i})" title="Remove">&times;</button>
-      </div>`).join('');
-
-    const questions = (p.questions || []).map((q, i) => `
-      <div class="question-item ${q.answered ? 'answered' : ''}">
-        <input type="checkbox" class="question-check" ${q.answered ? 'checked' : ''} onchange="toggleQuestion(${i}, this.checked)" />
-        <span class="question-text">${escHtml(q.text)}</span>
-        <button class="question-del" onclick="deleteQuestion(${i})" title="Remove">&times;</button>
-      </div>`).join('');
-
-    det.innerHTML = `
-      <div class="detail-header">
-        <div class="detail-title">${escHtml(p.title)}</div>
-        ${p.authors ? `<div class="detail-authors">${escHtml(p.authors)}</div>` : ''}
-        ${p.professor ? `<div style="font-size:12px;color:var(--accent);margin-top:4px;font-weight:600">Lab: ${escHtml(p.professor)}</div>` : ''}
-        <div class="detail-meta">
-          ${p.venue ? `<span class="tag tag-accent">${escHtml(p.venue)}</span>` : ''}
-          ${(p.topic||'').split(',').filter(Boolean).map(t => `<span class="tag">${escHtml(t.trim())}</span>`).join('')}
-        </div>
-        <div class="detail-actions">
-          <select class="status-select" onchange="updateStatus(this.value)">
-            <option value="unread" ${p.status==='unread'?'selected':''}>Unread</option>
-            <option value="reading" ${p.status==='reading'?'selected':''}>Reading</option>
-            <option value="done" ${p.status==='done'?'selected':''}>Done</option>
-          </select>
-          ${p.url ? `<a href="${escHtml(p.url)}" target="_blank" rel="noopener" class="btn btn-secondary">Open Paper</a>` : ''}
-          <button class="btn btn-secondary" onclick="openEditModal('${p.id}')">Edit</button>
-          <button class="btn btn-danger" onclick="deletePaper('${p.id}')">Delete</button>
-        </div>
-      </div>
-
-      ${p.abstract ? `
-      <div class="section">
-        <div class="section-title">Abstract</div>
-        <p style="font-size:14px;line-height:1.7;color:var(--muted)">${escHtml(p.abstract)}</p>
-      </div>` : ''}
-
-      <div class="section">
-        <div class="section-title">Summary / Notes</div>
-        <textarea id="notes-ta" rows="6" placeholder="Write your understanding of this paper — main idea, method, results, significance..."
-          oninput="autoSave('notes', this.value)">${escHtml(p.notes || '')}</textarea>
-        <div class="save-indicator" id="save-notes"></div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Key Concepts</div>
-        <div class="concepts-list" id="concepts-list">${concepts}</div>
-        <div class="add-concept">
-          <input type="text" id="concept-term" placeholder="Term" />
-          <input type="text" id="concept-def" placeholder="Definition / explanation" />
-          <button class="btn btn-primary" onclick="addConcept()">Add</button>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Questions &amp; Thoughts</div>
-        <div class="questions-list" id="questions-list">${questions || '<div style="font-size:13px;color:var(--muted)">No questions yet</div>'}</div>
-        <div class="add-question">
-          <input type="text" id="question-input" placeholder="Write a question or something to investigate..." onkeydown="if(event.key==='Enter')addQuestion()" />
-          <button class="btn btn-primary" onclick="addQuestion()">Add</button>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Personal Takeaway</div>
-        <textarea id="takeaway-ta" rows="3" placeholder="How does this paper relate to the lab's main research direction? What will you mention in your application?"
-          oninput="autoSave('takeaway', this.value)">${escHtml(p.takeaway || '')}</textarea>
-        <div class="save-indicator" id="save-takeaway"></div>
-      </div>
-    `;
-  }
-
-  // ── Auto-save text fields ─────────────────────────────────────
-  function autoSave(field, value) {
-    const p = getPaper(activePaperId);
-    if (!p) return;
-    p[field] = value;
-    persist();
-    const el = document.getElementById('save-' + field);
-    if (el) {
-      el.textContent = 'Saved';
-      clearTimeout(saveTimers[field]);
-      saveTimers[field] = setTimeout(() => { el.textContent = ''; }, 1500);
-    }
-  }
-
-  function updateStatus(val) {
-    const p = getPaper(activePaperId);
-    if (!p) return;
-    p.status = val;
-    persist();
-    renderSidebar(document.getElementById('search-input').value);
-  }
-
-  // ── Concepts ──────────────────────────────────────────────────
-  function addConcept() {
-    const term = document.getElementById('concept-term').value.trim();
-    const def = document.getElementById('concept-def').value.trim();
-    if (!term) return;
-    const p = getPaper(activePaperId);
-    p.concepts = p.concepts || [];
-    p.concepts.push({ term, def });
-    persist();
-    document.getElementById('concept-term').value = '';
-    document.getElementById('concept-def').value = '';
-    renderDetail();
-  }
-
-  function deleteConcept(i) {
-    const p = getPaper(activePaperId);
-    p.concepts.splice(i, 1);
-    persist();
-    renderDetail();
-  }
-
-  // ── Questions ─────────────────────────────────────────────────
-  function addQuestion() {
-    const input = document.getElementById('question-input');
-    const text = input.value.trim();
-    if (!text) return;
-    const p = getPaper(activePaperId);
-    p.questions = p.questions || [];
-    p.questions.push({ text, answered: false });
-    persist();
-    input.value = '';
-    renderDetail();
-  }
-
-  function toggleQuestion(i, checked) {
-    const p = getPaper(activePaperId);
-    p.questions[i].answered = checked;
-    persist();
-    // re-render just the list
-    const ql = document.getElementById('questions-list');
-    ql.querySelectorAll('.question-item')[i].classList.toggle('answered', checked);
-  }
-
-  function deleteQuestion(i) {
-    const p = getPaper(activePaperId);
-    p.questions.splice(i, 1);
-    persist();
-    renderDetail();
-  }
-
-  // ── Delete paper ──────────────────────────────────────────────
-  function deletePaper(id) {
-    if (!confirm('Delete this paper and all notes?')) return;
-    papers = papers.filter(p => p.id !== id);
-    persist();
-    activePaperId = null;
-    document.getElementById('paper-detail').classList.add('hidden');
-    document.getElementById('empty-state').classList.remove('hidden');
-    renderSidebar();
-  }
-
-  // ── Modal ─────────────────────────────────────────────────────
-  function openAddModal() {
-    editingId = null;
-    document.getElementById('modal-title').textContent = 'Add Paper';
-    ['title','authors','venue','url','professor','topic','abstract'].forEach(f => document.getElementById('f-'+f).value = '');
-    document.getElementById('modal-overlay').classList.remove('hidden');
-    document.getElementById('f-title').focus();
-  }
-
-  function openEditModal(id) {
-    editingId = id;
-    const p = getPaper(id);
-    document.getElementById('modal-title').textContent = 'Edit Paper';
-    document.getElementById('f-title').value = p.title || '';
-    document.getElementById('f-authors').value = p.authors || '';
-    document.getElementById('f-venue').value = p.venue || '';
-    document.getElementById('f-url').value = p.url || '';
-    document.getElementById('f-professor').value = p.professor || '';
-    document.getElementById('f-topic').value = p.topic || '';
-    document.getElementById('f-abstract').value = p.abstract || '';
-    document.getElementById('modal-overlay').classList.remove('hidden');
-  }
-
-  function closeModal() {
-    document.getElementById('modal-overlay').classList.add('hidden');
-  }
-
-  function savePaper() {
-    const title = document.getElementById('f-title').value.trim();
-    if (!title) { document.getElementById('f-title').focus(); return; }
-
-    if (editingId) {
-      const p = getPaper(editingId);
-      p.title = title;
-      p.authors = document.getElementById('f-authors').value.trim();
-      p.venue = document.getElementById('f-venue').value.trim();
-      p.url = document.getElementById('f-url').value.trim();
-      p.professor = document.getElementById('f-professor').value.trim();
-      p.topic = document.getElementById('f-topic').value.trim();
-      p.abstract = document.getElementById('f-abstract').value.trim();
-    } else {
-      papers.push({
-        id: Date.now().toString(),
-        title,
-        authors: document.getElementById('f-authors').value.trim(),
-        venue: document.getElementById('f-venue').value.trim(),
-        url: document.getElementById('f-url').value.trim(),
-        professor: document.getElementById('f-professor').value.trim(),
-        topic: document.getElementById('f-topic').value.trim(),
-        abstract: document.getElementById('f-abstract').value.trim(),
-        status: 'unread',
-        notes: '',
-        takeaway: '',
-        concepts: [],
-        questions: []
-      });
-    }
-
-    persist();
-    closeModal();
-    renderSidebar();
-    if (editingId && activePaperId === editingId) renderDetail();
-  }
-
-  // ── Search ────────────────────────────────────────────────────
-  document.getElementById('search-input').addEventListener('input', e => {
-    renderSidebar(e.target.value);
+  const groups = {};
+  filtered.forEach(p => {
+    if (!groups[p.professor]) groups[p.professor] = [];
+    groups[p.professor].push(p);
   });
 
-  // ── Close modal on overlay click ──────────────────────────────
-  document.getElementById('modal-overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('modal-overlay')) closeModal();
-  });
-
-  // ── Keyboard shortcuts ────────────────────────────────────────
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      document.getElementById('search-input').focus();
-    }
-  });
-
-  // ── Utils ─────────────────────────────────────────────────────
-  function escHtml(str) {
-    return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  if (filtered.length === 0) {
+    list.innerHTML = `<div style="padding:20px 16px;font-size:13px;color:var(--muted);text-align:center">No papers found</div>`;
+  } else {
+    list.innerHTML = Object.entries(groups).map(([prof, ps]) => `
+      <div class="group-label">${escHtml(prof)}</div>
+      ${ps.map(p => `
+        <div class="paper-item ${p.id === activePaperId ? 'active' : ''}" onclick="selectPaper('${p.id}')">
+          <div class="paper-item-title">${escHtml(p.title)}</div>
+          <div class="paper-item-meta">${escHtml(p.venue)}</div>
+          <span class="paper-item-status status-${getStatus(p.id)}">${statusLabel(getStatus(p.id))}</span>
+        </div>`).join('')}
+    `).join('');
   }
 
-  // ── Seed data ─────────────────────────────────────────────────
-  const SEED_PAPERS = [
-    {
-      professor: 'Kee-Eung Kim',
-      id: 'seed-1',
-      title: 'DPAIL: Training Diffusion Policy for Adversarial Imitation Learning without Policy Optimization',
-      authors: 'Yunseon Choi, Minchan Jeong, Soobin Um, Kee-Eung Kim',
-      venue: 'NeurIPS 2025',
-      url: 'asset/Kee-Eung Kim/NeurIPS_Choi_2025.pdf',
-      topic: 'diffusion policy, imitation learning, adversarial IL, ASAF',
-      abstract: 'Human experts employ diverse strategies to complete a task, producing multimodal demonstration data. Although traditional Adversarial Imitation Learning (AIL) methods have achieved notable success, they often collapse these multimodal behaviors into a single strategy, failing to replicate expert behaviors. To overcome this limitation, we propose DPAIL, an adversarial IL framework that leverages diffusion models as a policy class to enhance expressiveness. Building on the Adversarial Soft Advantage Fitting (ASAF) framework, which removes the need for policy optimization steps, DPAIL trains a diffusion policy using a binary cross-entropy objective to distinguish expert trajectories from generated ones.',
-      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
-    },
-    {
-      professor: 'Kee-Eung Kim',
-      id: 'seed-2',
-      title: 'Dynamic VLM-Guided Negative Prompting for Diffusion Models',
-      authors: 'Hoyeon Chang, Seungjin Kim, Yoonseok Choi (KAIST)',
-      venue: 'NeurIPS 2025 Workshop',
-      url: 'asset/Kee-Eung Kim/NeurIPSWS2025.pdf',
-      topic: 'diffusion models, negative prompting, VLM, content filtering',
-      abstract: 'We propose a novel approach for dynamic negative prompting in diffusion models that leverages Vision-Language Models (VLMs) to adaptively generate negative prompts during the denoising process. Unlike traditional Negative Prompting methods that use fixed negative prompts, our method generates intermediate image predictions at specific denoising steps and queries a VLM to produce contextually appropriate negative prompts.',
-      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
-    },
-    {
-      professor: 'Kee-Eung Kim',
-      id: 'seed-3',
-      title: 'MONET: Mixture of Monosemantic Experts for Transformers',
-      authors: 'Jungwoo Park, Young Jin Ahn, Kee-Eung Kim, Jaewoo Kang',
-      venue: 'ICLR 2025',
-      url: 'asset/Kee-Eung Kim/9736_Monet_Mixture_of_Monosema.pdf',
-      topic: 'mechanistic interpretability, mixture of experts, LLM, polysemanticity, sparse autoencoder',
-      abstract: 'Understanding the internal computations of large language models (LLMs) is crucial for aligning them with human values and preventing undesirable behaviors like toxic content generation. However, mechanistic interpretability is hindered by polysemanticity—where individual neurons respond to multiple, unrelated concepts. We introduce MONET architecture, which incorporates sparse dictionary learning directly into end-to-end Mixture-of-Experts pretraining. Our novel expert decomposition method enables scaling the expert count to 262,144 per layer while total parameters scale proportionally to the square root of the number of experts.',
-      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
-    },
-    {
-      professor: 'Beomjoon Kim',
-      id: 'seed-4',
-      title: 'PRESTO: Fast Motion Planning Using Diffusion Models Based on Key-Configuration Environment Representation',
-      authors: 'Mingyo Seo, Yoonyoung Cho, Yoonchang Sung, Peter Stone, Yuke Zhu, Beomjoon Kim',
-      venue: 'arXiv 2025 (cs.RO)',
-      url: 'asset/Beomjoon_Kim/2409.16012v2.pdf',
-      topic: 'motion planning, diffusion model, robotics, C-space, trajectory optimization',
-      abstract: 'We introduce a learning-guided motion planning framework that generates seed trajectories using a diffusion model for trajectory optimization. Given a workspace, our method approximates the configuration space (C-space) obstacles through an environment representation consisting of a sparse set of task-related key configurations, which is then used as a conditioning input to the diffusion model. The diffusion model integrates regularization terms that encourage smooth, collision-free trajectories during training, and trajectory optimization refines the generated seed trajectories to correct any colliding segments.',
-      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
-    },
-    {
-      professor: 'Beomjoon Kim',
-      id: 'seed-5',
-      title: 'Prime the Search: Using Large Language Models for Guiding Geometric Task and Motion Planning by Warm-starting Tree Search',
-      authors: 'Dongryung Lee, Sejune Joo, Kimin Lee, Beomjoon Kim',
-      venue: 'IJRR (submission)',
-      url: 'asset/Beomjoon_Kim/STaLM_IJRR_submission_.pdf',
-      topic: 'task and motion planning, LLM, MCTS, robotics, geometric planning',
-      abstract: 'The problem of relocating a set of objects to designated areas amidst movable obstacles can be framed as a Geometric Task and Motion Planning (G-TAMP) problem. We propose leveraging Large Language Models (LLMs), which have common sense knowledge acquired from internet-scale data, to guide task planning in G-TAMP problems. We design a predicate-based prompt that encodes geometric information derived from a motion planning algorithm, then use LLM outputs to warm-start Monte Carlo Tree Search (MCTS).',
-      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
-    }
-  ];
+  const all = PAPERS.length;
+  const reading = PAPERS.filter(p => getStatus(p.id) === 'reading').length;
+  const done = PAPERS.filter(p => getStatus(p.id) === 'done').length;
+  document.getElementById('stat-total').textContent = all;
+  document.getElementById('stat-reading').textContent = reading;
+  document.getElementById('stat-done').textContent = done;
+}
 
-  if (papers.length === 0) {
-    papers = SEED_PAPERS;
-    persist();
+function statusLabel(s) {
+  return s === 'unread' ? 'Unread' : s === 'reading' ? 'Reading' : 'Done';
+}
+
+function selectPaper(id) {
+  activePaperId = id;
+  renderSidebar(document.getElementById('search-input').value);
+  renderDetail();
+}
+
+function renderDetail() {
+  const p = PAPERS.find(x => x.id === activePaperId);
+  document.getElementById('empty-state').classList.add('hidden');
+  const det = document.getElementById('paper-detail');
+  det.classList.remove('hidden');
+
+  det.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-title">${escHtml(p.title)}</div>
+      <div class="detail-authors">${escHtml(p.authors)}</div>
+      <div class="detail-lab">Lab: ${escHtml(p.professor)}</div>
+      <div class="detail-meta">
+        <span class="tag tag-accent">${escHtml(p.venue)}</span>
+        ${p.topic.split(',').map(t => `<span class="tag">${escHtml(t.trim())}</span>`).join('')}
+      </div>
+      <div class="detail-actions">
+        <select class="status-select" onchange="updateStatus(this.value)">
+          <option value="unread" ${getStatus(p.id)==='unread'?'selected':''}>Unread</option>
+          <option value="reading" ${getStatus(p.id)==='reading'?'selected':''}>Reading</option>
+          <option value="done" ${getStatus(p.id)==='done'?'selected':''}>Done</option>
+        </select>
+        <a href="${escHtml(p.url)}" target="_blank" rel="noopener" class="btn btn-secondary">Open PDF</a>
+      </div>
+    </div>
+    <div class="summary-section">
+      <h2>Summary</h2>
+      <div class="summary-body">${p.summary}</div>
+    </div>
+  `;
+}
+
+function updateStatus(val) {
+  setStatus(activePaperId, val);
+  renderSidebar(document.getElementById('search-input').value);
+}
+
+document.getElementById('search-input').addEventListener('input', e => renderSidebar(e.target.value));
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('search-input').focus();
   }
+});
 
-  // ── Init ──────────────────────────────────────────────────────
-  renderSidebar();
-  if (papers.length > 0) selectPaper(papers[0].id);
+function escHtml(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+renderSidebar();
+if (PAPERS.length > 0) selectPaper(PAPERS[0].id);
 </script>
 </body>
 </html>
