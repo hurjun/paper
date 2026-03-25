@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paper Study</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --border: #e0ddd6;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --text: #1a1917;
+      --muted: #6b6860;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --tag-bg: #f1f0ec;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* Layout */
+    .app { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      padding: 20px 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .sidebar-header p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .sidebar-stats {
+      display: flex;
+      gap: 12px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .stat-number {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .sidebar-search {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-search input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      background: var(--bg);
+      outline: none;
+      color: var(--text);
+    }
+
+    .sidebar-search input:focus { border-color: var(--accent); }
+
+    .paper-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+
+    .paper-item {
+      padding: 10px 16px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: background 0.1s;
+    }
+
+    .paper-item:hover { background: var(--bg); }
+    .paper-item.active {
+      background: var(--accent-light);
+      border-left-color: var(--accent);
+    }
+
+    .paper-item-title {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .paper-item-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .paper-item-status {
+      display: inline-block;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .status-unread { background: #fef3c7; color: #92400e; }
+    .status-reading { background: #dbeafe; color: #1e40af; }
+    .status-done { background: #dcfce7; color: #15803d; }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.1s, background 0.1s;
+    }
+
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--tag-bg); color: var(--text); border: 1px solid var(--border); }
+    .btn-danger { background: #fee2e2; color: var(--danger); }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+      max-width: 800px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      color: var(--muted);
+      text-align: center;
+      gap: 12px;
+    }
+
+    .empty-state-icon { font-size: 48px; opacity: 0.4; }
+    .empty-state h2 { font-size: 18px; color: var(--text); }
+    .empty-state p { font-size: 14px; }
+
+    /* Paper detail */
+    .paper-detail { display: flex; flex-direction: column; gap: 24px; }
+
+    .detail-header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .detail-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    .detail-authors {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      align-items: center;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--tag-bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .tag-accent { background: var(--accent-light); color: var(--accent); border-color: #bfdbfe; }
+
+    .detail-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .status-select {
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      background: var(--bg);
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    /* Sections */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    textarea:focus { border-color: var(--accent); }
+
+    .save-indicator {
+      font-size: 11px;
+      color: var(--success);
+      margin-top: 4px;
+      height: 16px;
+      transition: opacity 0.3s;
+    }
+
+    /* Key concepts */
+    .concepts-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .concept-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      background: var(--bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .concept-term {
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 140px;
+      color: var(--accent);
+    }
+
+    .concept-def { font-size: 13px; color: var(--text); flex: 1; }
+
+    .concept-del {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1;
+      padding: 0 2px;
+      flex-shrink: 0;
+    }
+
+    .concept-del:hover { color: var(--danger); }
+
+    .add-concept {
+      display: grid;
+      grid-template-columns: 1fr 2fr auto;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .add-concept input {
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+    }
+
+    .add-concept input:focus { border-color: var(--accent); }
+
+    /* Questions */
+    .questions-list { display: flex; flex-direction: column; gap: 6px; }
+
+    .question-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 12px;
+      background: var(--bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .question-item.answered { opacity: 0.6; text-decoration: line-through; }
+
+    .question-check { cursor: pointer; margin-top: 2px; flex-shrink: 0; }
+    .question-text { flex: 1; }
+
+    .question-del {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1;
+      padding: 0 2px;
+    }
+
+    .question-del:hover { color: var(--danger); }
+
+    .add-question {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .add-question input {
+      flex: 1;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+    }
+
+    .add-question input:focus { border-color: var(--accent); }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+
+    .modal {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 24px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .modal h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+  </style>
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Paper Study</h1>
+      <p>Master's application preparation</p>
+    </div>
+    <div class="sidebar-stats">
+      <div class="stat"><span class="stat-number" id="stat-total">0</span><span class="stat-label">Total</span></div>
+      <div class="stat"><span class="stat-number" id="stat-reading">0</span><span class="stat-label">Reading</span></div>
+      <div class="stat"><span class="stat-number" id="stat-done">0</span><span class="stat-label">Done</span></div>
+    </div>
+    <div class="sidebar-search">
+      <input type="text" id="search-input" placeholder="Search papers..." />
+    </div>
+    <div class="paper-list" id="paper-list"></div>
+    <div class="sidebar-footer">
+      <button class="btn btn-primary btn-full" onclick="openAddModal()">+ Add Paper</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main" id="main-content">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-state-icon">&#128196;</div>
+      <h2>No paper selected</h2>
+      <p>Add a paper from the sidebar or select one to start studying.</p>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Add your first paper</button>
+    </div>
+    <div class="paper-detail hidden" id="paper-detail"></div>
+  </main>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal-overlay hidden" id="modal-overlay">
+  <div class="modal">
+    <h2 id="modal-title">Add Paper</h2>
+    <div class="form-group">
+      <label>Title *</label>
+      <input type="text" id="f-title" placeholder="Full paper title" />
+    </div>
+    <div class="form-group">
+      <label>Authors</label>
+      <input type="text" id="f-authors" placeholder="e.g. Kim et al., 2023" />
+    </div>
+    <div class="form-group">
+      <label>Venue / Year</label>
+      <input type="text" id="f-venue" placeholder="e.g. CVPR 2023" />
+    </div>
+    <div class="form-group">
+      <label>Paper URL</label>
+      <input type="url" id="f-url" placeholder="https://arxiv.org/..." />
+    </div>
+    <div class="form-group">
+      <label>Professor / Lab</label>
+      <input type="text" id="f-professor" placeholder="e.g. Kee-Eung Kim" />
+    </div>
+    <div class="form-group">
+      <label>Topic / Keywords</label>
+      <input type="text" id="f-topic" placeholder="e.g. object detection, transformer" />
+    </div>
+    <div class="form-group">
+      <label>Abstract (optional)</label>
+      <textarea id="f-abstract" rows="3" placeholder="Paste abstract here..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="savePaper()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let papers = JSON.parse(localStorage.getItem('papers') || '[]');
+  let activePaperId = null;
+  let editingId = null;
+  let saveTimers = {};
+
+  // ── Persistence ──────────────────────────────────────────────
+  function persist() {
+    localStorage.setItem('papers', JSON.stringify(papers));
+  }
+
+  function getPaper(id) {
+    return papers.find(p => p.id === id);
+  }
+
+  // ── Sidebar ───────────────────────────────────────────────────
+  function renderSidebar(filter = '') {
+    const list = document.getElementById('paper-list');
+    const q = filter.toLowerCase();
+    const filtered = q
+      ? papers.filter(p => p.title.toLowerCase().includes(q) || (p.authors||'').toLowerCase().includes(q) || (p.topic||'').toLowerCase().includes(q))
+      : papers;
+
+    if (filtered.length === 0) {
+      list.innerHTML = `<div style="padding:20px 16px;font-size:13px;color:var(--muted);text-align:center">No papers found</div>`;
+    } else {
+      // Group by professor (derived from topic or first author's last word)
+      const groups = {};
+      filtered.forEach(p => {
+        const prof = p.professor || 'Other';
+        if (!groups[prof]) groups[prof] = [];
+        groups[prof].push(p);
+      });
+      list.innerHTML = Object.entries(groups).map(([prof, ps]) => `
+        ${Object.keys(groups).length > 1 ? `<div style="padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;border-top:1px solid var(--border)">${escHtml(prof)}</div>` : ''}
+        ${ps.map(p => `
+          <div class="paper-item ${p.id === activePaperId ? 'active' : ''}" onclick="selectPaper('${p.id}')">
+            <div class="paper-item-title">${escHtml(p.title)}</div>
+            <div class="paper-item-meta">${p.venue ? escHtml(p.venue) : ''}</div>
+            <span class="paper-item-status status-${p.status}">${statusLabel(p.status)}</span>
+          </div>`).join('')}
+      `).join('');
+    }
+
+    // stats
+    document.getElementById('stat-total').textContent = papers.length;
+    document.getElementById('stat-reading').textContent = papers.filter(p => p.status === 'reading').length;
+    document.getElementById('stat-done').textContent = papers.filter(p => p.status === 'done').length;
+  }
+
+  function statusLabel(s) {
+    return s === 'unread' ? 'Unread' : s === 'reading' ? 'Reading' : 'Done';
+  }
+
+  // ── Select paper ──────────────────────────────────────────────
+  function selectPaper(id) {
+    activePaperId = id;
+    renderSidebar(document.getElementById('search-input').value);
+    renderDetail();
+  }
+
+  // ── Detail ────────────────────────────────────────────────────
+  function renderDetail() {
+    const p = getPaper(activePaperId);
+    document.getElementById('empty-state').classList.add('hidden');
+    const det = document.getElementById('paper-detail');
+    det.classList.remove('hidden');
+
+    const concepts = (p.concepts || []).map((c, i) => `
+      <div class="concept-item">
+        <span class="concept-term">${escHtml(c.term)}</span>
+        <span class="concept-def">${escHtml(c.def)}</span>
+        <button class="concept-del" onclick="deleteConcept(${i})" title="Remove">&times;</button>
+      </div>`).join('');
+
+    const questions = (p.questions || []).map((q, i) => `
+      <div class="question-item ${q.answered ? 'answered' : ''}">
+        <input type="checkbox" class="question-check" ${q.answered ? 'checked' : ''} onchange="toggleQuestion(${i}, this.checked)" />
+        <span class="question-text">${escHtml(q.text)}</span>
+        <button class="question-del" onclick="deleteQuestion(${i})" title="Remove">&times;</button>
+      </div>`).join('');
+
+    det.innerHTML = `
+      <div class="detail-header">
+        <div class="detail-title">${escHtml(p.title)}</div>
+        ${p.authors ? `<div class="detail-authors">${escHtml(p.authors)}</div>` : ''}
+        ${p.professor ? `<div style="font-size:12px;color:var(--accent);margin-top:4px;font-weight:600">Lab: ${escHtml(p.professor)}</div>` : ''}
+        <div class="detail-meta">
+          ${p.venue ? `<span class="tag tag-accent">${escHtml(p.venue)}</span>` : ''}
+          ${(p.topic||'').split(',').filter(Boolean).map(t => `<span class="tag">${escHtml(t.trim())}</span>`).join('')}
+        </div>
+        <div class="detail-actions">
+          <select class="status-select" onchange="updateStatus(this.value)">
+            <option value="unread" ${p.status==='unread'?'selected':''}>Unread</option>
+            <option value="reading" ${p.status==='reading'?'selected':''}>Reading</option>
+            <option value="done" ${p.status==='done'?'selected':''}>Done</option>
+          </select>
+          ${p.url ? `<a href="${escHtml(p.url)}" target="_blank" rel="noopener" class="btn btn-secondary">Open Paper</a>` : ''}
+          <button class="btn btn-secondary" onclick="openEditModal('${p.id}')">Edit</button>
+          <button class="btn btn-danger" onclick="deletePaper('${p.id}')">Delete</button>
+        </div>
+      </div>
+
+      ${p.abstract ? `
+      <div class="section">
+        <div class="section-title">Abstract</div>
+        <p style="font-size:14px;line-height:1.7;color:var(--muted)">${escHtml(p.abstract)}</p>
+      </div>` : ''}
+
+      <div class="section">
+        <div class="section-title">Summary / Notes</div>
+        <textarea id="notes-ta" rows="6" placeholder="Write your understanding of this paper — main idea, method, results, significance..."
+          oninput="autoSave('notes', this.value)">${escHtml(p.notes || '')}</textarea>
+        <div class="save-indicator" id="save-notes"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Key Concepts</div>
+        <div class="concepts-list" id="concepts-list">${concepts}</div>
+        <div class="add-concept">
+          <input type="text" id="concept-term" placeholder="Term" />
+          <input type="text" id="concept-def" placeholder="Definition / explanation" />
+          <button class="btn btn-primary" onclick="addConcept()">Add</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Questions &amp; Thoughts</div>
+        <div class="questions-list" id="questions-list">${questions || '<div style="font-size:13px;color:var(--muted)">No questions yet</div>'}</div>
+        <div class="add-question">
+          <input type="text" id="question-input" placeholder="Write a question or something to investigate..." onkeydown="if(event.key==='Enter')addQuestion()" />
+          <button class="btn btn-primary" onclick="addQuestion()">Add</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Personal Takeaway</div>
+        <textarea id="takeaway-ta" rows="3" placeholder="How does this paper relate to the lab's main research direction? What will you mention in your application?"
+          oninput="autoSave('takeaway', this.value)">${escHtml(p.takeaway || '')}</textarea>
+        <div class="save-indicator" id="save-takeaway"></div>
+      </div>
+    `;
+  }
+
+  // ── Auto-save text fields ─────────────────────────────────────
+  function autoSave(field, value) {
+    const p = getPaper(activePaperId);
+    if (!p) return;
+    p[field] = value;
+    persist();
+    const el = document.getElementById('save-' + field);
+    if (el) {
+      el.textContent = 'Saved';
+      clearTimeout(saveTimers[field]);
+      saveTimers[field] = setTimeout(() => { el.textContent = ''; }, 1500);
+    }
+  }
+
+  function updateStatus(val) {
+    const p = getPaper(activePaperId);
+    if (!p) return;
+    p.status = val;
+    persist();
+    renderSidebar(document.getElementById('search-input').value);
+  }
+
+  // ── Concepts ──────────────────────────────────────────────────
+  function addConcept() {
+    const term = document.getElementById('concept-term').value.trim();
+    const def = document.getElementById('concept-def').value.trim();
+    if (!term) return;
+    const p = getPaper(activePaperId);
+    p.concepts = p.concepts || [];
+    p.concepts.push({ term, def });
+    persist();
+    document.getElementById('concept-term').value = '';
+    document.getElementById('concept-def').value = '';
+    renderDetail();
+  }
+
+  function deleteConcept(i) {
+    const p = getPaper(activePaperId);
+    p.concepts.splice(i, 1);
+    persist();
+    renderDetail();
+  }
+
+  // ── Questions ─────────────────────────────────────────────────
+  function addQuestion() {
+    const input = document.getElementById('question-input');
+    const text = input.value.trim();
+    if (!text) return;
+    const p = getPaper(activePaperId);
+    p.questions = p.questions || [];
+    p.questions.push({ text, answered: false });
+    persist();
+    input.value = '';
+    renderDetail();
+  }
+
+  function toggleQuestion(i, checked) {
+    const p = getPaper(activePaperId);
+    p.questions[i].answered = checked;
+    persist();
+    // re-render just the list
+    const ql = document.getElementById('questions-list');
+    ql.querySelectorAll('.question-item')[i].classList.toggle('answered', checked);
+  }
+
+  function deleteQuestion(i) {
+    const p = getPaper(activePaperId);
+    p.questions.splice(i, 1);
+    persist();
+    renderDetail();
+  }
+
+  // ── Delete paper ──────────────────────────────────────────────
+  function deletePaper(id) {
+    if (!confirm('Delete this paper and all notes?')) return;
+    papers = papers.filter(p => p.id !== id);
+    persist();
+    activePaperId = null;
+    document.getElementById('paper-detail').classList.add('hidden');
+    document.getElementById('empty-state').classList.remove('hidden');
+    renderSidebar();
+  }
+
+  // ── Modal ─────────────────────────────────────────────────────
+  function openAddModal() {
+    editingId = null;
+    document.getElementById('modal-title').textContent = 'Add Paper';
+    ['title','authors','venue','url','professor','topic','abstract'].forEach(f => document.getElementById('f-'+f).value = '');
+    document.getElementById('modal-overlay').classList.remove('hidden');
+    document.getElementById('f-title').focus();
+  }
+
+  function openEditModal(id) {
+    editingId = id;
+    const p = getPaper(id);
+    document.getElementById('modal-title').textContent = 'Edit Paper';
+    document.getElementById('f-title').value = p.title || '';
+    document.getElementById('f-authors').value = p.authors || '';
+    document.getElementById('f-venue').value = p.venue || '';
+    document.getElementById('f-url').value = p.url || '';
+    document.getElementById('f-professor').value = p.professor || '';
+    document.getElementById('f-topic').value = p.topic || '';
+    document.getElementById('f-abstract').value = p.abstract || '';
+    document.getElementById('modal-overlay').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.add('hidden');
+  }
+
+  function savePaper() {
+    const title = document.getElementById('f-title').value.trim();
+    if (!title) { document.getElementById('f-title').focus(); return; }
+
+    if (editingId) {
+      const p = getPaper(editingId);
+      p.title = title;
+      p.authors = document.getElementById('f-authors').value.trim();
+      p.venue = document.getElementById('f-venue').value.trim();
+      p.url = document.getElementById('f-url').value.trim();
+      p.professor = document.getElementById('f-professor').value.trim();
+      p.topic = document.getElementById('f-topic').value.trim();
+      p.abstract = document.getElementById('f-abstract').value.trim();
+    } else {
+      papers.push({
+        id: Date.now().toString(),
+        title,
+        authors: document.getElementById('f-authors').value.trim(),
+        venue: document.getElementById('f-venue').value.trim(),
+        url: document.getElementById('f-url').value.trim(),
+        professor: document.getElementById('f-professor').value.trim(),
+        topic: document.getElementById('f-topic').value.trim(),
+        abstract: document.getElementById('f-abstract').value.trim(),
+        status: 'unread',
+        notes: '',
+        takeaway: '',
+        concepts: [],
+        questions: []
+      });
+    }
+
+    persist();
+    closeModal();
+    renderSidebar();
+    if (editingId && activePaperId === editingId) renderDetail();
+  }
+
+  // ── Search ────────────────────────────────────────────────────
+  document.getElementById('search-input').addEventListener('input', e => {
+    renderSidebar(e.target.value);
+  });
+
+  // ── Close modal on overlay click ──────────────────────────────
+  document.getElementById('modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  });
+
+  // ── Keyboard shortcuts ────────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      document.getElementById('search-input').focus();
+    }
+  });
+
+  // ── Utils ─────────────────────────────────────────────────────
+  function escHtml(str) {
+    return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Seed data ─────────────────────────────────────────────────
+  const SEED_PAPERS = [
+    {
+      professor: 'Kee-Eung Kim',
+      id: 'seed-1',
+      title: 'DPAIL: Training Diffusion Policy for Adversarial Imitation Learning without Policy Optimization',
+      authors: 'Yunseon Choi, Minchan Jeong, Soobin Um, Kee-Eung Kim',
+      venue: 'NeurIPS 2025',
+      url: 'asset/Kee-Eung Kim/NeurIPS_Choi_2025.pdf',
+      topic: 'diffusion policy, imitation learning, adversarial IL, ASAF',
+      abstract: 'Human experts employ diverse strategies to complete a task, producing multimodal demonstration data. Although traditional Adversarial Imitation Learning (AIL) methods have achieved notable success, they often collapse these multimodal behaviors into a single strategy, failing to replicate expert behaviors. To overcome this limitation, we propose DPAIL, an adversarial IL framework that leverages diffusion models as a policy class to enhance expressiveness. Building on the Adversarial Soft Advantage Fitting (ASAF) framework, which removes the need for policy optimization steps, DPAIL trains a diffusion policy using a binary cross-entropy objective to distinguish expert trajectories from generated ones.',
+      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
+    },
+    {
+      professor: 'Kee-Eung Kim',
+      id: 'seed-2',
+      title: 'Dynamic VLM-Guided Negative Prompting for Diffusion Models',
+      authors: 'Hoyeon Chang, Seungjin Kim, Yoonseok Choi (KAIST)',
+      venue: 'NeurIPS 2025 Workshop',
+      url: 'asset/Kee-Eung Kim/NeurIPSWS2025.pdf',
+      topic: 'diffusion models, negative prompting, VLM, content filtering',
+      abstract: 'We propose a novel approach for dynamic negative prompting in diffusion models that leverages Vision-Language Models (VLMs) to adaptively generate negative prompts during the denoising process. Unlike traditional Negative Prompting methods that use fixed negative prompts, our method generates intermediate image predictions at specific denoising steps and queries a VLM to produce contextually appropriate negative prompts.',
+      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
+    },
+    {
+      professor: 'Kee-Eung Kim',
+      id: 'seed-3',
+      title: 'MONET: Mixture of Monosemantic Experts for Transformers',
+      authors: 'Jungwoo Park, Young Jin Ahn, Kee-Eung Kim, Jaewoo Kang',
+      venue: 'ICLR 2025',
+      url: 'asset/Kee-Eung Kim/9736_Monet_Mixture_of_Monosema.pdf',
+      topic: 'mechanistic interpretability, mixture of experts, LLM, polysemanticity, sparse autoencoder',
+      abstract: 'Understanding the internal computations of large language models (LLMs) is crucial for aligning them with human values and preventing undesirable behaviors like toxic content generation. However, mechanistic interpretability is hindered by polysemanticity—where individual neurons respond to multiple, unrelated concepts. We introduce MONET architecture, which incorporates sparse dictionary learning directly into end-to-end Mixture-of-Experts pretraining. Our novel expert decomposition method enables scaling the expert count to 262,144 per layer while total parameters scale proportionally to the square root of the number of experts.',
+      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
+    },
+    {
+      professor: 'Beomjoon Kim',
+      id: 'seed-4',
+      title: 'PRESTO: Fast Motion Planning Using Diffusion Models Based on Key-Configuration Environment Representation',
+      authors: 'Mingyo Seo, Yoonyoung Cho, Yoonchang Sung, Peter Stone, Yuke Zhu, Beomjoon Kim',
+      venue: 'arXiv 2025 (cs.RO)',
+      url: 'asset/Beomjoon_Kim/2409.16012v2.pdf',
+      topic: 'motion planning, diffusion model, robotics, C-space, trajectory optimization',
+      abstract: 'We introduce a learning-guided motion planning framework that generates seed trajectories using a diffusion model for trajectory optimization. Given a workspace, our method approximates the configuration space (C-space) obstacles through an environment representation consisting of a sparse set of task-related key configurations, which is then used as a conditioning input to the diffusion model. The diffusion model integrates regularization terms that encourage smooth, collision-free trajectories during training, and trajectory optimization refines the generated seed trajectories to correct any colliding segments.',
+      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
+    },
+    {
+      professor: 'Beomjoon Kim',
+      id: 'seed-5',
+      title: 'Prime the Search: Using Large Language Models for Guiding Geometric Task and Motion Planning by Warm-starting Tree Search',
+      authors: 'Dongryung Lee, Sejune Joo, Kimin Lee, Beomjoon Kim',
+      venue: 'IJRR (submission)',
+      url: 'asset/Beomjoon_Kim/STaLM_IJRR_submission_.pdf',
+      topic: 'task and motion planning, LLM, MCTS, robotics, geometric planning',
+      abstract: 'The problem of relocating a set of objects to designated areas amidst movable obstacles can be framed as a Geometric Task and Motion Planning (G-TAMP) problem. We propose leveraging Large Language Models (LLMs), which have common sense knowledge acquired from internet-scale data, to guide task planning in G-TAMP problems. We design a predicate-based prompt that encodes geometric information derived from a motion planning algorithm, then use LLM outputs to warm-start Monte Carlo Tree Search (MCTS).',
+      status: 'unread', notes: '', takeaway: '', concepts: [], questions: []
+    }
+  ];
+
+  if (papers.length === 0) {
+    papers = SEED_PAPERS;
+    persist();
+  }
+
+  // ── Init ──────────────────────────────────────────────────────
+  renderSidebar();
+  if (papers.length > 0) selectPaper(papers[0].id);
+</script>
+</body>
+</html>
